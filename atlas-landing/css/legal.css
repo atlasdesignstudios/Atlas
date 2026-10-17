@@ -1,0 +1,127 @@
+/* ==========================================================================
+   ATLAS — Páginas legales (se carga después de styles.css)
+   ========================================================================== */
+
+.legal-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: var(--header-h);
+  padding: 0 var(--gutter);
+  border-bottom: 1px solid var(--line);
+}
+.legal-header__back {
+  grid-column: 1;
+  justify-self: start;
+  padding: 12px 0;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+.legal-header__back:hover,
+.legal-header__back:focus-visible { color: var(--hover); }
+
+/* Documento */
+.legal-doc {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: clamp(40px, 7vw, 88px) var(--gutter);
+}
+
+.legal-doc h1 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-weight: 400;      /* Pirata One solo existe en un peso */
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.05;
+}
+
+.legal-doc .updated {
+  margin: 0 0 40px;
+  font-size: 14px;
+  color: #9a9a9a;
+}
+
+.legal-doc h2 {
+  margin: 48px 0 14px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.legal-doc h3 {
+  margin: 28px 0 8px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.legal-doc p,
+.legal-doc li {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #e6e6e6;
+}
+.legal-doc p { margin: 0 0 14px; }
+
+.legal-doc ul,
+.legal-doc ol { margin: 0 0 14px; padding-left: 1.3em; }
+.legal-doc ul { list-style: disc; }
+.legal-doc ol { list-style: decimal; }
+.legal-doc li { margin-bottom: 6px; }
+
+.legal-doc a { text-decoration: underline; text-underline-offset: 3px; }
+.legal-doc a:hover { color: var(--hover); }
+
+.legal-doc strong { font-weight: 500; color: var(--white); }
+
+/* Aviso de borrador (eliminar al publicar) */
+.legal-draft {
+  margin: 0 0 40px;
+  padding: 16px 20px;
+  border: 1px solid var(--white);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.legal-draft p { margin: 0; font-size: 14px; }
+
+/* Tablas con scroll horizontal en pantallas pequeñas */
+.table-wrap { overflow-x: auto; margin: 0 0 20px; }
+.legal-doc table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.legal-doc th,
+.legal-doc td {
+  padding: 10px 12px;
+  border: 1px solid #333;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.55;
+}
+.legal-doc th { font-weight: 500; background: #111; }
+
+/* Formulario modelo de desistimiento */
+.legal-doc blockquote {
+  margin: 0 0 20px;
+  padding: 16px 20px;
+  border: 1px dashed #666;
+}
+.legal-doc blockquote p { margin: 0 0 10px; }
+.legal-doc blockquote p:last-child { margin: 0; }
+
+/* Botón dentro del texto (p. ej. «Configurar cookies») */
+.legal-doc .btn { margin: 8px 0 20px; cursor: pointer; }
+
+@media print {
+  body { background: #fff; color: #000; }
+  .legal-header, .site-header, .cart-button, .site-footer, .cookie-banner, .legal-draft { display: none; }
+  .legal-doc p, .legal-doc li, .legal-doc h1, .legal-doc h2, .legal-doc h3 { color: #000; }
+  .ph { background: none; outline: 1px solid #000; }
+}
