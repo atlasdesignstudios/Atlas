@@ -1,6 +1,6 @@
 /* ==========================================================================
    ATLAS — Catálogo
-   Cambia entre la vista delantera y trasera de cada prenda.
+   Cambia entre la vista delantera y trasera de cada prenda (flechas junto a la prenda).
    Sin JavaScript se muestra siempre la vista delantera (y el selector queda oculto).
    ========================================================================== */
 (function () {
@@ -9,7 +9,7 @@
   var cards = document.querySelectorAll("[data-product]");
 
   Array.prototype.forEach.call(cards, function (card) {
-    var toggle = card.querySelector(".view-toggle");
+    var toggle = card.querySelector(".view-toggle, .view-arrows");
     if (!toggle) return;
 
     var imgs = card.querySelectorAll(".card__img");
@@ -20,7 +20,10 @@
         img.hidden = img.getAttribute("data-view") !== view;
       });
       Array.prototype.forEach.call(buttons, function (btn) {
-        btn.setAttribute("aria-pressed", String(btn.getAttribute("data-set-view") === view));
+        var active = btn.getAttribute("data-set-view") === view;
+        btn.setAttribute("aria-pressed", String(active));
+        // Con flechas: se desactiva la que ya apunta a la vista que se está mostrando
+        if (toggle.classList.contains("view-arrows")) btn.disabled = active;
       });
     }
 

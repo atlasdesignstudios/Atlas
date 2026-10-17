@@ -34,5 +34,5 @@ En `js/cart.js`, `CONFIG.checkoutUrl` está vacío y el botón «Finalizar compr
 ## Novedades (17 oct 2026)
 - Una página por prenda (`hoodie-zip-choices.html`, `sueter-jacquard.html`, `camiseta-spiral.html`, `manga-larga-third-eye.html`, `manga-larga-the-cycle.html`), con acordeones, migas de pan y datos estructurados de ruta.
 - Imágenes en WebP con nombres descriptivos (`hoodie-zip-negro-espalda-atlas.webp`…): de ~6 MB a ~1,3 MB.
-- Hero con subtítulo y botón «Ver la primera cápsula»; botón de ficha «Ponte la armadura»; enlace «Avísame cuando abra» en ficha y cesta.
+- Hero con subtítulo y botón «Ver el primer drop»; botón de ficha «Ponte la armadura»; enlace «Avísame cuando abra» en ficha y cesta.
 - Pendiente antes de abrir la tienda: composición y cuidados, tabla de medidas, datos `Product` con `offers` (JSON-LD) y revisar el correo de contacto.

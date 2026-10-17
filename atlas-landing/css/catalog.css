@@ -122,6 +122,30 @@
   border-color: var(--white);
 }
 
+/* Flechas junto a la prenda para ver delante / detrás (las muestra js/catalog.js) */
+.view-arrows[hidden] { display: none; }
+.view-arrows__btn {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--white);
+  border: 1px solid #555;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+.view-arrows__btn svg { width: 22px; height: 22px; }
+.view-arrows__btn--prev { left: 10px; }
+.view-arrows__btn--next { right: 10px; }
+.view-arrows__btn:hover:not(:disabled) { background: var(--white); color: var(--black); border-color: var(--white); }
+.view-arrows__btn:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+.view-arrows__btn:disabled { opacity: 0.25; cursor: default; }
+
 /* Nota bajo la rejilla */
 .catalog__note {
   max-width: 70ch;

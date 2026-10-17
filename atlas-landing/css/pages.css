@@ -111,7 +111,7 @@
 .feature__title { margin: 0 0 10px; font: 500 13px/1.4 var(--font-ui); letter-spacing: 0.2em; text-transform: uppercase; }
 .feature p { margin: 0; font-size: 14px; line-height: 1.7; color: #b5b5b5; }
 
-/* Primera cápsula */
+/* Primer drop */
 .range__list {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
