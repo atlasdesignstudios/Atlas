@@ -197,7 +197,7 @@
     checkoutBtn.setAttribute("data-cart-checkout", "");
     soonEl = el("p", "cart__note cart__soon", "El pago se activará cuando abramos la tienda. ");
     var notify = el("a", "", "Avísame cuando abra");
-    notify.href = "mailto:atlasdesigntudios@gmail.com?subject=" + encodeURIComponent("Avísame cuando abra Atlas");
+    notify.href = ROOT + "nosotros.html#lista-vip";
     soonEl.appendChild(notify);
     footEl.appendChild(row);
     footEl.appendChild(note);
