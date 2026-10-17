@@ -291,3 +291,6 @@ button.btn { cursor: pointer; }
   .cart__body { padding: 0 18px; }
   .cart__foot { padding: 18px 18px 22px; }
 }
+
+.cart__soon a { color: var(--white); text-underline-offset: 3px; }
+.cart__soon a:hover { color: var(--hover); }

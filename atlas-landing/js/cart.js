@@ -195,7 +195,10 @@
     checkoutBtn = el("button", "btn btn--block", "Finalizar compra");
     checkoutBtn.type = "button";
     checkoutBtn.setAttribute("data-cart-checkout", "");
-    soonEl = el("p", "cart__note cart__soon", "El pago se activará cuando abramos la tienda.");
+    soonEl = el("p", "cart__note cart__soon", "El pago se activará cuando abramos la tienda. ");
+    var notify = el("a", "", "Avísame cuando abra");
+    notify.href = "mailto:atlasdesigntudios@gmail.com?subject=" + encodeURIComponent("Avísame cuando abra Atlas");
+    soonEl.appendChild(notify);
     footEl.appendChild(row);
     footEl.appendChild(note);
     footEl.appendChild(checkoutBtn);
