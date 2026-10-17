@@ -1,0 +1,296 @@
+/* ==========================================================================
+   ATLAS — Carrito (se carga después de styles.css)
+   Índice: 1 Botón del header · 2 Panel · 3 Líneas de producto · 4 Pie
+           5 Selector de talla en el catálogo
+   ========================================================================== */
+
+/* 1. BOTÓN DEL HEADER ------------------------------------------------------ */
+.cart-button {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.cart-button[hidden] { display: none; }
+.cart-button:hover { color: var(--hover); }
+.cart-button svg { width: 28px; height: 28px; }
+
+.cart-count {
+  position: absolute;
+  top: 3px;
+  right: -2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: var(--white);
+  color: var(--black);
+  font: 500 11px/18px var(--font-ui);
+  text-align: center;
+}
+.cart-count[hidden] { display: none; }
+
+/* En escritorio, deja sitio al botón junto a «Nosotros · Contacto» */
+@media (min-width: 761px) {
+  .site-header .nav-list--right { margin-right: 56px; }
+}
+
+
+/* 2. PANEL ----------------------------------------------------------------- */
+html.cart-open { overflow: hidden; }
+
+.cart [hidden] { display: none !important; }
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+.cart-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s;
+}
+
+.cart {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  width: min(440px, 100%);
+  background: var(--black);
+  border-left: 1px solid var(--white);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.3s ease, visibility 0s linear 0.3s;
+}
+.cart.is-open {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.3s ease, visibility 0s;
+}
+
+.cart__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+  padding: 0 12px 0 24px;
+  border-bottom: 1px solid var(--line);
+}
+.cart__title {
+  margin: 0;
+  font: 500 12px/1 var(--font-ui);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+.cart__count { color: #9a9a9a; }
+
+.cart__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.cart__close:hover { color: var(--hover); }
+
+.cart__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 24px;
+}
+
+.cart__empty {
+  display: grid;
+  justify-items: start;
+  gap: 20px;
+  padding: 32px 0;
+}
+.cart__empty p { margin: 0; font-size: 15px; color: #cfcfcf; }
+.cart__keep {
+  min-height: 44px;
+  padding: 0 24px;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--white);
+  font: 500 12px/1 var(--font-ui);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.cart__keep:hover { background: var(--white); color: var(--black); }
+
+.cart__list { margin: 0; padding: 0; list-style: none; }
+
+
+/* 3. LÍNEAS DE PRODUCTO ---------------------------------------------------- */
+.cart-item {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.cart-item__media {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(ellipse 80% 70% at 50% 55%, rgba(170, 170, 170, 0.35) 0%, rgba(170, 170, 170, 0) 100%), #0c0c0c;
+}
+.cart-item__img { width: 100%; height: 100%; object-fit: contain; }
+
+.cart-item__info { display: grid; align-content: start; gap: 6px; min-width: 0; }
+.cart-item__name { margin: 0; font-size: 15px; font-weight: 500; line-height: 1.35; }
+.cart-item__meta { margin: 0; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #9a9a9a; }
+
+.cart-item__qty { display: inline-flex; align-items: center; margin-top: 6px; border: 1px solid #555; width: max-content; }
+.qty-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--white);
+  font: 400 20px/1 var(--font-ui);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.qty-btn:hover:not(:disabled) { background: var(--white); color: var(--black); }
+.qty-btn:disabled { color: #555; cursor: not-allowed; }
+.qty-num { min-width: 32px; text-align: center; font-size: 15px; }
+
+.cart-item__side { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; }
+.cart-item__price { margin: 0; font-size: 15px; font-weight: 500; white-space: nowrap; }
+.cart-item__remove {
+  min-height: 44px;
+  padding: 0 4px;
+  background: none;
+  border: 0;
+  color: #bdbdbd;
+  font: 400 12px/1 var(--font-ui);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.cart-item__remove:hover { color: var(--white); }
+
+
+/* 4. PIE DEL PANEL --------------------------------------------------------- */
+.cart__foot {
+  display: grid;
+  gap: 14px;
+  padding: 20px 24px 24px;
+  border-top: 1px solid var(--white);
+  background: var(--black);
+}
+.cart__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.cart__total strong { font-size: 22px; font-weight: 500; letter-spacing: 0.02em; }
+.cart__note { margin: 0; font-size: 13px; line-height: 1.6; color: #9a9a9a; }
+
+/* Botones de bloque (catálogo y panel) */
+button.btn { cursor: pointer; }
+.btn--block { display: block; width: 100%; padding: 18px 24px; text-align: center; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn:disabled:hover { background: var(--white); color: var(--black); }
+
+
+/* 5. SELECTOR DE TALLA EN EL CATÁLOGO -------------------------------------- */
+.card__buy { display: grid; gap: 12px; margin-top: 8px; }
+.card__buy[hidden] { display: none; }
+
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.sizes__label {
+  margin-right: 8px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+}
+.size { position: relative; display: inline-block; }
+.size input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.size span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 44px;
+  border: 1px solid #555;
+  font: 500 12px/1 var(--font-ui);
+  letter-spacing: 0.12em;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.size:hover span { border-color: var(--white); }
+.size input:checked + span { background: var(--white); color: var(--black); border-color: var(--white); }
+.size input:focus-visible + span { outline: 2px solid var(--white); outline-offset: 3px; }
+
+.card__error {
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--white);
+  font-size: 13px;
+}
+.card__error[hidden] { display: none; }
+
+@media (max-width: 440px) {
+  .cart-item { grid-template-columns: 64px minmax(0, 1fr) auto; gap: 12px; }
+  .cart-item__media { width: 64px; height: 64px; }
+  .cart__body { padding: 0 18px; }
+  .cart__foot { padding: 18px 18px 22px; }
+}
+
+.cart__soon a { color: var(--white); text-underline-offset: 3px; }
+.cart__soon a:hover { color: var(--hover); }
