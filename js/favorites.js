@@ -222,7 +222,7 @@
     countEl.textContent = String(n);
     countEl.hidden = n === 0;
     linkEl.classList.toggle("has-alert", a > 0);
-    linkEl.setAttribute("aria-label", "Favoritos" + (n ? ", " + n + (n === 1 ? " prenda" : " prendas") : "") + (a ? ", con novedades" : ""));
+    linkEl.setAttribute("aria-label", "Favorites" + (n ? ", " + n + (n === 1 ? " item" : " items") : "") + (a ? ", with updates" : ""));
   }
 
   function announce(text) {
@@ -252,7 +252,7 @@
   function paint(btn, info) {
     var on = !!find(info.id);
     btn.setAttribute("aria-pressed", String(on));
-    btn.setAttribute("aria-label", (on ? "Quitar de favoritos: " : "Añadir a favoritos: ") + info.name);
+    btn.setAttribute("aria-label", (on ? "Remove from favorites: " : "Add to favorites: ") + info.name);
   }
 
   function refreshButtons() {
@@ -273,11 +273,11 @@
       btn.addEventListener("click", function () {
         if (find(info.id)) {
           remove(info.id);
-          announce("Quitado de favoritos: " + info.name);
+          announce("Removed from favorites: " + info.name);
         } else if (add(info)) {
-          announce("Añadido a favoritos: " + info.name + ". Te avisaremos aquí si baja de precio o quedan pocas unidades.");
+          announce("Added to favorites: " + info.name + ". We'll let you know here if the price drops or few units are left.");
         } else {
-          announce("No se puede guardar más de " + MAX_ITEMS + " prendas en favoritos.");
+          announce("You can't save more than " + MAX_ITEMS + " items in favorites.");
         }
       });
       buttons.push({ btn: btn, info: info });
@@ -316,12 +316,12 @@
     p.appendChild(document.createTextNode("Novedades en tus favoritos. " + (withAlerts.length === 1 ? describe(withAlerts[0]) : "Hay cambios en " + withAlerts.length + " prendas.") + " "));
     var a = document.createElement("a");
     a.href = ROOT + "favoritos.html";
-    a.textContent = "Ver favoritos";
+    a.textContent = "View favorites";
     p.appendChild(a);
     var close = document.createElement("button");
     close.type = "button";
     close.className = "fav-toast__close";
-    close.textContent = "Cerrar";
+    close.textContent = "Close";
     close.addEventListener("click", function () { toastEl.hidden = true; });
     toastEl.appendChild(p);
     toastEl.appendChild(close);

@@ -53,31 +53,31 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <a class="skip-link" href="#contenido">Skip to content</a>
 
   <!-- ============ HEADER (igual que en la portada) ============ -->
   <header class="site-header" id="inicio">
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
       <span class="menu-toggle__bars" aria-hidden="true"></span>
-      <span class="visually-hidden">Menú</span>
+      <span class="visually-hidden">Menu</span>
     </button>
 
-    <a class="logo" href="index.html" aria-label="Atlas, ir al inicio">
+    <a class="logo" href="index.html" aria-label="Atlas, go to home">
       <img src="assets/img/logo.png" alt="Atlas" width="896" height="1199">
     </a>
 
-    <nav class="site-nav" id="menu" aria-label="Principal">
+    <nav class="site-nav" id="menu" aria-label="Main">
       <ul class="nav-list nav-list--left">
-        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="catalogo.html">Catalog</a></li>
       </ul>
       <ul class="nav-list nav-list--right">
-        <li><a href="nosotros.html">Nosotros</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="nosotros.html">About us</a></li>
+        <li><a href="contacto.html">Contact</a></li>
       </ul>
     </nav>
 
     <!-- Cesta: js/cart.js la muestra y rellena el contador -->
-    <button class="cart-button" type="button" data-cart-open aria-haspopup="dialog" aria-controls="cart" aria-label="Abrir la cesta" hidden>
+    <button class="cart-button" type="button" data-cart-open aria-haspopup="dialog" aria-controls="cart" aria-label="Open the cart" hidden>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
         <path d="M5.5 8h13l-1.2 12H6.7L5.5 8z"/>
         <path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>
@@ -87,58 +87,58 @@
   </header>
 
   <main id="contenido">
-    <nav class="crumbs" aria-label="Migas de pan">
-      <a href="index.html">Inicio</a> <span aria-hidden="true">/</span> <a href="catalogo.html">Catálogo</a> <span aria-hidden="true">/</span> <span aria-current="page">Camiseta larga «The Cycle»</span>
+    <nav class="crumbs" aria-label="Breadcrumbs">
+      <a href="index.html">Home</a> <span aria-hidden="true">/</span> <a href="catalogo.html">Catalog</a> <span aria-hidden="true">/</span> <span aria-current="page">Camiseta larga «The Cycle»</span>
     </nav>
 
     <article class="pdp" data-product data-id="manga-larga-the-cycle" data-name="Camiseta larga «The Cycle»" data-price="55">
       <div class="pdp__media card__media">
         <img class="card__img" data-view="front" src="assets/img/camiseta-manga-larga-negra-frontal-atlas.webp" width="822" height="769" alt="Camiseta larga negra Atlas, vista frontal con una serpiente ouroboros y el texto «The cycle never ends»">
         <img class="card__img" data-view="back" src="assets/img/camiseta-manga-larga-negra-espalda-atlas.webp" width="823" height="811" loading="lazy" hidden alt="Camiseta larga negra Atlas, vista trasera con un rostro y el texto «Calm face, Violent Ambition»">
-        <span class="card__tag">Primer drop · Próximamente</span>
-        <div class="view-arrows" role="group" aria-label="Vista de la prenda" hidden>
-          <button type="button" class="view-arrows__btn view-arrows__btn--prev" data-set-view="front" aria-label="Ver por delante" disabled>
+        <span class="card__tag">First drop · Coming soon</span>
+        <div class="view-arrows" role="group" aria-label="Garment view" hidden>
+          <button type="button" class="view-arrows__btn view-arrows__btn--prev" data-set-view="front" aria-label="View front" disabled>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
           </button>
-          <button type="button" class="view-arrows__btn view-arrows__btn--next" data-set-view="back" aria-label="Ver por detrás">
+          <button type="button" class="view-arrows__btn view-arrows__btn--next" data-set-view="back" aria-label="View back">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
           </button>
         </div>
       </div>
 
       <div class="pdp__info">
-        <p class="card__cat">Camisetas largas</p>
+        <p class="card__cat">Long-sleeve tees</p>
         <h1 class="pdp__title">Camiseta manga larga negra «The Cycle»</h1>
         <p class="pdp__lead">Cara tranquila. Ambición violenta.</p>
         <p class="card__desc">Camiseta larga negra. Serpiente ouroboros y «The cycle never ends» delante; un rostro y «Calm face, Violent Ambition» detrás.</p>
 
         <p class="card__price">55&nbsp;€ <span class="pdp__vat">IVA incluido</span></p>
-        <p class="card__sizes">Tallas S · M · L · XL · Corte oversize</p>
+        <p class="card__sizes">Sizes S · M · L · XL · Oversize fit</p>
 
         <div class="card__buy" hidden>
           <fieldset class="sizes">
-            <legend class="visually-hidden">Talla</legend>
-            <span class="sizes__label" aria-hidden="true">Talla</span>
+            <legend class="visually-hidden">Size</legend>
+            <span class="sizes__label" aria-hidden="true">Size</span>
             <label class="size"><input type="radio" name="size-manga-larga-the-cycle" value="S"><span>S</span></label><label class="size"><input type="radio" name="size-manga-larga-the-cycle" value="M"><span>M</span></label><label class="size"><input type="radio" name="size-manga-larga-the-cycle" value="L"><span>L</span></label><label class="size"><input type="radio" name="size-manga-larga-the-cycle" value="XL"><span>XL</span></label>
           </fieldset>
-          <p class="card__error" role="alert" hidden>Elige una talla para continuar.</p>
-          <button type="button" class="btn btn--block" data-add-to-cart>Ponte la armadura</button>
+          <p class="card__error" role="alert" hidden>Choose a size to continue.</p>
+          <button type="button" class="btn btn--block" data-add-to-cart>Wear the armor</button>
           <p class="pdp__micro">Se añade a tu cesta; todavía no se te cobra nada. Devolución en 14 días.</p>
         </div>
 
-        <p class="pdp__notify">La tienda aún no está abierta. <a href="nosotros.html#lista-vip">Avísame cuando abra</a></p>
+        <p class="pdp__notify">The store isn't open yet. <a href="nosotros.html#lista-vip">Notify me when it opens</a></p>
 
         <div class="pdp__acc">
           <details open>
-            <summary>Detalles del diseño</summary>
+            <summary>Design details</summary>
             <ul><li>Ouroboros y «The cycle never ends» en el frente.</li><li>Espalda: rostro y «Calm face, Violent Ambition».</li><li>Gráfico en blanco sobre negro.</li></ul>
           </details>
           <details>
-            <summary>Guía de talla</summary>
+            <summary>Size guide</summary>
             <p>Tallas S, M, L y XL con corte oversize. Si prefieres un ajuste más cercano, elige una talla menos. Antes de abrir la tienda publicaremos aquí la tabla de medidas de esta prenda.</p>
           </details>
           <details>
-            <summary>Composición y cuidados</summary>
+            <summary>Composition and care</summary>
             <p>Los materiales y las instrucciones de lavado se indicarán en la etiqueta de la prenda y aquí antes de abrir la tienda.</p>
           </details>
           <details>
@@ -150,7 +150,7 @@
     </article>
 
     <section class="related" aria-labelledby="rel-title">
-      <h2 class="related__title" id="rel-title">Más del primer drop</h2>
+      <h2 class="related__title" id="rel-title">More from the first drop</h2>
       <ul class="related__grid">
           <li><a class="related__card" href="hoodie-zip-choices.html">
             <span class="related__media"><img src="assets/img/hoodie-zip-negro-frontal-atlas.webp" width="710" height="902" loading="lazy" alt="Hoodie negro con cremallera Atlas, vista frontal con estampado blanco en el pecho"></span>

@@ -24,30 +24,30 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <a class="skip-link" href="#contenido">Skip to content</a>
 
   <!-- ============ HEADER (igual que en el resto de páginas) ============ -->
   <header class="site-header" id="inicio">
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
       <span class="menu-toggle__bars" aria-hidden="true"></span>
-      <span class="visually-hidden">Menú</span>
+      <span class="visually-hidden">Menu</span>
     </button>
 
-    <a class="logo" href="index.html" aria-label="Atlas, ir al inicio">
+    <a class="logo" href="index.html" aria-label="Atlas, go to home">
       <img src="assets/img/logo.png" alt="Atlas" width="896" height="1199">
     </a>
 
-    <nav class="site-nav" id="menu" aria-label="Principal">
+    <nav class="site-nav" id="menu" aria-label="Main">
       <ul class="nav-list nav-list--left">
-        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="catalogo.html">Catalog</a></li>
       </ul>
       <ul class="nav-list nav-list--right">
-        <li><a href="nosotros.html">Nosotros</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="nosotros.html">About us</a></li>
+        <li><a href="contacto.html">Contact</a></li>
       </ul>
     </nav>
 
-    <button class="cart-button" type="button" data-cart-open aria-haspopup="dialog" aria-controls="cart" aria-label="Abrir la cesta" hidden>
+    <button class="cart-button" type="button" data-cart-open aria-haspopup="dialog" aria-controls="cart" aria-label="Open the cart" hidden>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
         <path d="M5.5 8h13l-1.2 12H6.7L5.5 8z"/>
         <path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>
@@ -60,12 +60,12 @@
     <div class="page">
 
       <header class="page__head">
-        <h1 class="page__title">Favoritos</h1>
-        <p class="page__lead">Guarda lo que quieres. Te avisamos si cambia</p>
+        <h1 class="page__title">Favorites</h1>
+        <p class="page__lead">Save what you want. We'll tell you if it changes</p>
       </header>
 
       <section class="favs" aria-labelledby="favs-title">
-        <h2 class="visually-hidden" id="favs-title" tabindex="-1">Tus prendas guardadas</h2>
+        <h2 class="visually-hidden" id="favs-title" tabindex="-1">Your saved items</h2>
 
         <noscript>
           <p class="form__note">Para ver y guardar tus favoritos necesitas activar JavaScript en el navegador. Mientras tanto, puedes ver todas las prendas en el <a href="catalogo.html">catálogo</a>.</p>
@@ -73,7 +73,7 @@
 
         <div class="favs__empty" id="favs-empty">
           <p>Aún no has guardado nada. Toca el corazón de una prenda del catálogo y aparecerá aquí. Si baja de precio o quedan pocas unidades, te lo diremos en cuanto vuelvas.</p>
-          <a class="btn" href="catalogo.html">Ver catálogo</a>
+          <a class="btn" href="catalogo.html">View catalog</a>
         </div>
 
         <ul class="favs__grid" id="favs-list" hidden></ul>
@@ -83,8 +83,8 @@
            js/favorites-page.js lo muestra cuando hay prendas guardadas. Mientras data-endpoint esté vacío,
            abre el programa de correo del visitante. Cómo conectar un proveedor: cabecera de js/favorites-page.js. -->
       <section class="favs-mail" id="favs-mail" aria-labelledby="favs-mail-title" hidden>
-        <p class="kicker">Avisos por correo</p>
-        <h2 class="favs-mail__title" id="favs-mail-title">No te pierdas una bajada de precio</h2>
+        <p class="kicker">Email alerts</p>
+        <h2 class="favs-mail__title" id="favs-mail-title">Don't miss a price drop</h2>
         <p class="favs-mail__text">Déjanos tu correo y te escribimos si alguna de tus prendas baja de precio o se queda con pocas unidades.</p>
 
         <form class="favs-mail__form" id="favs-mail-form" data-u="atlasdesigntudios" data-d="gmail.com" data-endpoint="" novalidate hidden>
@@ -101,7 +101,7 @@
           </div>
           <p class="field__error" id="favs-consent-err" hidden></p>
 
-          <button type="submit" class="btn btn--block">Activar avisos</button>
+          <button type="submit" class="btn btn--block">Turn on alerts</button>
           <p class="form__status" id="favs-mail-status" role="status"></p>
         </form>
 

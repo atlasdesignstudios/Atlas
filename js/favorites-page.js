@@ -95,11 +95,11 @@
     if (alerts.length) body.appendChild(alertNode(it, alerts));
 
     var actions = el("div", "fav-card__actions");
-    var see = el("a", "btn", "Elegir talla");
+    var see = el("a", "btn", "Choose size");
     see.href = href;
-    var rm = el("button", "fav-card__remove", "Quitar");
+    var rm = el("button", "fav-card__remove", "Remove");
     rm.type = "button";
-    rm.setAttribute("aria-label", "Quitar de favoritos: " + it.name);
+    rm.setAttribute("aria-label", "Remove from favorites: " + it.name);
     rm.addEventListener("click", function () {
       F.remove(it.id);
       titleEl.focus();

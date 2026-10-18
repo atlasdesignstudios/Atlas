@@ -61,30 +61,30 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <a class="skip-link" href="#contenido">Skip to content</a>
 
   <!-- ============ HEADER (igual que en el resto de páginas) ============ -->
   <header class="site-header" id="inicio">
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
       <span class="menu-toggle__bars" aria-hidden="true"></span>
-      <span class="visually-hidden">Menú</span>
+      <span class="visually-hidden">Menu</span>
     </button>
 
-    <a class="logo" href="index.html" aria-label="Atlas, ir al inicio">
+    <a class="logo" href="index.html" aria-label="Atlas, go to home">
       <img src="assets/img/logo.png" alt="Atlas" width="896" height="1199">
     </a>
 
-    <nav class="site-nav" id="menu" aria-label="Principal">
+    <nav class="site-nav" id="menu" aria-label="Main">
       <ul class="nav-list nav-list--left">
-        <li><a href="catalogo.html">Catálogo</a></li>
+        <li><a href="catalogo.html">Catalog</a></li>
       </ul>
       <ul class="nav-list nav-list--right">
-        <li><a href="nosotros.html" aria-current="page">Nosotros</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="nosotros.html" aria-current="page">About us</a></li>
+        <li><a href="contacto.html">Contact</a></li>
       </ul>
     </nav>
 
-    <button class="cart-button" type="button" data-cart-open aria-haspopup="dialog" aria-controls="cart" aria-label="Abrir la cesta" hidden>
+    <button class="cart-button" type="button" data-cart-open aria-haspopup="dialog" aria-controls="cart" aria-label="Open the cart" hidden>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
         <path d="M5.5 8h13l-1.2 12H6.7L5.5 8z"/>
         <path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>
@@ -97,8 +97,8 @@
     <div class="page">
 
       <header class="page__head">
-        <h1 class="page__title">Sobre Atlas</h1>
-        <p class="page__lead">Quien carga su mundo no pide permiso</p>
+        <h1 class="page__title">About Atlas</h1>
+        <p class="page__lead">Those who carry their world don't ask permission</p>
       </header>
 
       <!-- MANIFIESTO (NUESTRA HISTORIA) -->
@@ -108,8 +108,8 @@
                alt="Logotipo de Atlas: el titán arrodillado sosteniendo el mundo sobre los hombros, con el nombre Atlas en letra gótica">
         </figure>
         <div class="story__text">
-          <p class="kicker">Nuestra historia</p>
-          <h2 class="story__title" id="historia-title">Sostén tu peso. Camina sin pedir permiso.</h2>
+          <p class="kicker">Our story</p>
+          <h2 class="story__title" id="historia-title">Hold your weight. Walk without asking permission.</h2>
 
           <p class="creed__verse">Zeus condenó a Atlas a sostener el cielo.<br>Sin descanso. Sin testigos. Sin preguntar si podía.</p>
           <p class="creed__verse">Nosotros no vinimos a quejarnos del peso.<br>Vinimos a aprender a caminar con él.</p>
@@ -125,28 +125,28 @@
 
       <!-- CALIDAD DE ARMADURA -->
       <section class="armor" aria-labelledby="armadura-title">
-        <p class="kicker">Calidad de armadura</p>
-        <h2 class="section-title" id="armadura-title">Hecha para aguantar el peso</h2>
+        <p class="kicker">Armor quality</p>
+        <h2 class="section-title" id="armadura-title">Built to hold the weight</h2>
         <ul class="armor__list">
           <li class="armor__item">
             <span class="armor__num" aria-hidden="true">01</span>
-            <h3 class="armor__title">Gramaje pesado</h3>
+            <h3 class="armor__title">Heavyweight fabric</h3>
             <!-- Cuando tengas el dato real, añádelo aquí (p. ej. «XXX g/m²») -->
             <p>Tejido denso que cae con peso y mantiene la forma. Se nota en la mano antes de ponértela.</p>
           </li>
           <li class="armor__item">
             <span class="armor__num" aria-hidden="true">02</span>
-            <h3 class="armor__title">Punto jacquard tejido</h3>
+            <h3 class="armor__title">Woven jacquard knit</h3>
             <p>En el suéter, la figura no se estampa encima: se teje dentro del propio punto. Pensada para no cuartearse ni despegarse.</p>
           </li>
           <li class="armor__item">
             <span class="armor__num" aria-hidden="true">03</span>
-            <h3 class="armor__title">Confección independiente</h3>
+            <h3 class="armor__title">Independent making</h3>
             <p>Marca independiente con base en Valencia. Sin fast fashion y sin prisas: cada acabado importa.</p>
           </li>
           <li class="armor__item">
             <span class="armor__num" aria-hidden="true">04</span>
-            <h3 class="armor__title">Tirada limitada</h3>
+            <h3 class="armor__title">Limited run</h3>
             <p>Cada drop se produce en cantidad cerrada. Cuando se agota, se acabó.</p>
           </li>
         </ul>
@@ -160,8 +160,8 @@
 
       <!-- PRIMER DROP: enlaces al catálogo -->
       <section class="range" aria-labelledby="capsula-title">
-        <p class="kicker">El primer drop</p>
-        <h2 class="section-title" id="capsula-title">Cinco piezas, una sola idea</h2>
+        <p class="kicker">The first drop</p>
+        <h2 class="section-title" id="capsula-title">Five pieces, one idea</h2>
         <ul class="range__list">
           <li>
             <a class="range__card" href="hoodie-zip-choices.html">
@@ -205,13 +205,13 @@
            js/vip.js muestra el formulario y lo envía. Mientras data-endpoint esté vacío, abre el programa de correo
            del visitante (igual que el formulario de contacto). Instrucciones para conectar un proveedor en js/vip.js. -->
       <section class="vip" id="lista-vip" aria-labelledby="vip-title">
-        <p class="kicker">Lista VIP · Drop I</p>
-        <h2 class="vip__title" id="vip-title">Entra antes de que se cierre la puerta</h2>
+        <p class="kicker">VIP list · Drop I</p>
+        <h2 class="vip__title" id="vip-title">Get in before the door closes</h2>
         <p class="vip__text">Los drops de Atlas no se reponen. Quien está en la lista entra primero.</p>
         <ul class="vip__perks">
           <li>Acceso 24&nbsp;h antes del Drop I</li>
-          <li>Solo unidades numeradas</li>
-          <li>Un único aviso cuando abramos. Nada más</li>
+          <li>Numbered units only</li>
+          <li>One alert when we open. Nothing else</li>
         </ul>
 
         <form class="vip__form" id="vip-form" data-u="atlasdesigntudios" data-d="gmail.com" data-endpoint="" novalidate hidden>
@@ -228,14 +228,14 @@
           </div>
           <p class="field__error" id="vip-consent-err" hidden></p>
 
-          <button type="submit" class="btn btn--block">Entrar en la lista</button>
+          <button type="submit" class="btn btn--block">Join the list</button>
           <p class="form__status" id="vip-status" role="status"></p>
         </form>
 
         <noscript>
           <p class="form__note">Para entrar en la lista, escríbenos a <a href="mailto:atlasdesigntudios@gmail.com?subject=Lista%20VIP%20Atlas">atlasdesigntudios@gmail.com</a>.</p>
         </noscript>
-        <a class="link-line" href="catalogo.html">Ver el catálogo</a>
+        <a class="link-line" href="catalogo.html">View catalog</a>
       </section>
 
       <!-- PREGUNTAS FRECUENTES -->

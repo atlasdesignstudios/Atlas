@@ -212,13 +212,13 @@
     drawer.setAttribute("aria-labelledby", "cart-title");
 
     var head = el("div", "cart__head");
-    var title = el("h2", "cart__title", "Tu cesta");
+    var title = el("h2", "cart__title", "Your cart");
     title.id = "cart-title";
     countLabelEl = el("span", "cart__count");
     title.appendChild(countLabelEl);
     closeBtn = el("button", "cart__close");
     closeBtn.type = "button";
-    closeBtn.setAttribute("aria-label", "Cerrar la cesta");
+    closeBtn.setAttribute("aria-label", "Close the cart");
     closeBtn.setAttribute("data-cart-close", "");
     closeBtn.innerHTML =
       '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">' +
@@ -228,8 +228,8 @@
 
     var body = el("div", "cart__body");
     emptyEl = el("div", "cart__empty");
-    emptyEl.appendChild(el("p", "", "Tu cesta está vacía."));
-    var keep = el("button", "cart__keep", "Seguir comprando");
+    emptyEl.appendChild(el("p", "", "Your cart is empty."));
+    var keep = el("button", "cart__keep", "Keep shopping");
     keep.type = "button";
     keep.setAttribute("data-cart-close", "");
     emptyEl.appendChild(keep);
@@ -245,11 +245,11 @@
     row.appendChild(subtotalLabelEl);
     row.appendChild(totalEl);
     var note = el("p", "cart__note", "Los gastos de envío se indican antes de confirmar el pedido.");
-    checkoutBtn = el("button", "btn btn--block", "Finalizar compra");
+    checkoutBtn = el("button", "btn btn--block", "Checkout");
     checkoutBtn.type = "button";
     checkoutBtn.setAttribute("data-cart-checkout", "");
-    soonEl = el("p", "cart__note cart__soon", "El pago se activará cuando abramos la tienda. ");
-    var notify = el("a", "", "Avísame cuando abra");
+    soonEl = el("p", "cart__note cart__soon", "Checkout will be enabled when the store opens. ");
+    var notify = el("a", "", "Notify me when it opens");
     notify.href = ROOT + "nosotros.html#lista-vip";
     soonEl.appendChild(notify);
     footEl.appendChild(row);
@@ -279,19 +279,19 @@
 
     var info = el("div", "cart-item__info");
     info.appendChild(el("p", "cart-item__name", it.name));
-    info.appendChild(el("p", "cart-item__meta", "Talla " + it.size + " · " + fmt(it.cents)));
+    info.appendChild(el("p", "cart-item__meta", "Size " + it.size + " · " + fmt(it.cents)));
 
     var qty = el("div", "cart-item__qty");
     qty.setAttribute("role", "group");
-    qty.setAttribute("aria-label", "Cantidad de " + it.name + ", talla " + it.size);
+    qty.setAttribute("aria-label", "Quantity of " + it.name + ", size " + it.size);
     var dec = el("button", "qty-btn", "−");
     dec.type = "button"; dec.setAttribute("data-action", "dec");
-    dec.setAttribute("aria-label", "Una unidad menos");
+    dec.setAttribute("aria-label", "One less");
     dec.disabled = it.qty <= 1;
     var num = el("span", "qty-num", String(it.qty));
     var inc = el("button", "qty-btn", "+");
     inc.type = "button"; inc.setAttribute("data-action", "inc");
-    inc.setAttribute("aria-label", "Una unidad más");
+    inc.setAttribute("aria-label", "One more");
     inc.disabled = it.qty >= CONFIG.maxPerLine;
     qty.appendChild(dec); qty.appendChild(num); qty.appendChild(inc);
     info.appendChild(qty);
@@ -299,9 +299,9 @@
     var side = el("div", "cart-item__side");
     var price = el("p", "cart-item__price", fmt(it.qty * it.cents));
     side.appendChild(price);
-    var rm = el("button", "cart-item__remove", "Quitar");
+    var rm = el("button", "cart-item__remove", "Remove");
     rm.type = "button"; rm.setAttribute("data-action", "remove");
-    rm.setAttribute("aria-label", "Quitar " + it.name + ", talla " + it.size);
+    rm.setAttribute("aria-label", "Remove " + it.name + ", size " + it.size);
     side.appendChild(rm);
 
     li.appendChild(media); li.appendChild(info); li.appendChild(side);
@@ -329,8 +329,8 @@
       n.hidden = t.qty === 0;
     });
     Array.prototype.forEach.call(document.querySelectorAll("[data-cart-open]"), function (b) {
-      b.setAttribute("aria-label", t.qty === 0 ? "Abrir la cesta (vacía)" :
-        "Abrir la cesta (" + t.qty + (t.qty === 1 ? " artículo)" : " artículos)"));
+      b.setAttribute("aria-label", t.qty === 0 ? "Open the cart (empty)" :
+        "Open the cart (" + t.qty + (t.qty === 1 ? " item)" : " items)"));
     });
 
     // Panel
