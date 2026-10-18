@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="css/catalog.css">
   <link rel="stylesheet" href="css/product.css">
   <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/favorites.css">
 
   <script type="application/ld+json">
 {
@@ -95,6 +96,14 @@
         <img class="card__img" data-view="front" src="assets/img/camiseta-manga-larga-blanca-frontal-atlas.webp" width="624" height="556" alt="Camiseta larga blanca Atlas, vista frontal con una mano y un ojo estampados">
         <img class="card__img" data-view="back" src="assets/img/camiseta-manga-larga-blanca-espalda-atlas.webp" width="640" height="570" loading="lazy" hidden alt="Camiseta larga blanca Atlas, vista trasera con un ojo y una figura en meditación">
         <span class="card__tag">Primer drop · Próximamente</span>
+        <div class="view-arrows" role="group" aria-label="Vista de la prenda" hidden>
+          <button type="button" class="view-arrows__btn view-arrows__btn--prev" data-set-view="front" aria-label="Ver por delante" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button type="button" class="view-arrows__btn view-arrows__btn--next" data-set-view="back" aria-label="Ver por detrás">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
       </div>
 
       <div class="pdp__info">
@@ -102,11 +111,6 @@
         <h1 class="pdp__title">Camiseta manga larga blanca «Third Eye»</h1>
         <p class="pdp__lead">El tercer ojo, a la vista de todos.</p>
         <p class="card__desc">Camiseta larga blanca. Una mano y un ojo delante; en la espalda, un ojo y una figura en meditación; «We rule the city» recorre las mangas.</p>
-
-        <div class="view-toggle" role="group" aria-label="Vista de la prenda" hidden>
-          <button type="button" data-set-view="front" aria-pressed="true">Delante</button>
-          <button type="button" data-set-view="back" aria-pressed="false">Detrás</button>
-        </div>
 
         <p class="card__price">55&nbsp;€ <span class="pdp__vat">IVA incluido</span></p>
         <p class="card__sizes">Tallas S · M · L · XL · Corte oversize</p>
@@ -200,6 +204,7 @@
   <script src="js/main.js"></script>
   <script src="js/catalog.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/favorites.js"></script>
   <script src="js/cookies.js"></script>
 </body>
 </html>

@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="css/catalog.css">
   <link rel="stylesheet" href="css/product.css">
   <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/favorites.css">
 
   <script type="application/ld+json">
 {
@@ -95,6 +96,14 @@
         <img class="card__img" data-view="front" src="assets/img/hoodie-zip-negro-frontal-atlas.webp" width="710" height="902" alt="Hoodie negro con cremallera Atlas, vista frontal con estampado blanco en el pecho">
         <img class="card__img" data-view="back" src="assets/img/hoodie-zip-negro-espalda-atlas.webp" width="681" height="884" loading="lazy" hidden alt="Hoodie negro con cremallera Atlas, espalda con texto gótico en blanco a gran tamaño">
         <span class="card__tag">Primer drop · Próximamente</span>
+        <div class="view-arrows" role="group" aria-label="Vista de la prenda" hidden>
+          <button type="button" class="view-arrows__btn view-arrows__btn--prev" data-set-view="front" aria-label="Ver por delante" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button type="button" class="view-arrows__btn view-arrows__btn--next" data-set-view="back" aria-label="Ver por detrás">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
       </div>
 
       <div class="pdp__info">
@@ -102,11 +111,6 @@
         <h1 class="pdp__title">Hoodie con cremallera «Choices»</h1>
         <p class="pdp__lead">Armadura urbana para quien carga su mundo.</p>
         <p class="card__desc">Hoodie negro con cremallera. Estampado en blanco en el pecho, la espalda y las mangas, con tipografía gótica. La espalda es la protagonista: se ve desde lejos y se recuerda.</p>
-
-        <div class="view-toggle" role="group" aria-label="Vista de la prenda" hidden>
-          <button type="button" data-set-view="front" aria-pressed="true">Delante</button>
-          <button type="button" data-set-view="back" aria-pressed="false">Detrás</button>
-        </div>
 
         <p class="card__price">89&nbsp;€ <span class="pdp__vat">IVA incluido</span></p>
         <p class="card__sizes">Tallas S · M · L · XL · Corte oversize</p>
@@ -200,6 +204,7 @@
   <script src="js/main.js"></script>
   <script src="js/catalog.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/favorites.js"></script>
   <script src="js/cookies.js"></script>
 </body>
 </html>

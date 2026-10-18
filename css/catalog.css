@@ -122,10 +122,14 @@
   border-color: var(--white);
 }
 
+/* Pulsar sobre la prenda abre su ficha (el enlace del nombre sigue siendo el accesible por teclado) */
+.card__link { position: absolute; inset: 0; z-index: 1; cursor: pointer; }
+
 /* Flechas junto a la prenda para ver delante / detrás (las muestra js/catalog.js) */
 .view-arrows[hidden] { display: none; }
 .view-arrows__btn {
   position: absolute;
+  z-index: 2;
   top: 50%;
   display: grid;
   place-items: center;

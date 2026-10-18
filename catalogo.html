@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/catalog.css">
   <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/favorites.css">
 
   <script type="application/ld+json">
 {
@@ -115,12 +116,18 @@
              data-price  precio de VENTA en euros con IVA, un solo número (p. ej. 89)
 
            El precio que se ve en la tarjeta (card__price) y data-price deben ser
-           el mismo: si cambias uno, cambia el otro. -->
+           el mismo: si cambias uno, cambia el otro.
+
+           Favoritos: esta página es la fuente de precio y stock para los avisos de js/favorites.js.
+             · Al bajar un precio, quienes tengan la prenda en favoritos verán el aviso al volver a la web.
+             · data-stock="low"  (atributo opcional del <li>) = quedan pocas unidades.
+             · data-stock="out"  = agotada. Quita el atributo para volver a la normalidad. -->
       <ul class="grid">
 
         <!-- 1 · Hoodie con cremallera (pieza pilar) -->
         <li class="card" data-product data-id="hoodie-zip-choices" data-name="Hoodie Zip «Choices»" data-price="89">
           <div class="card__media">
+            <a class="card__link" href="hoodie-zip-choices.html" tabindex="-1" aria-hidden="true"></a>
             <img class="card__img" data-view="front" src="assets/img/hoodie-zip-negro-frontal-atlas.webp" width="710" height="902"
                  alt="Hoodie Atlas con cremallera, vista frontal">
             <img class="card__img" data-view="back" src="assets/img/hoodie-zip-negro-espalda-atlas.webp" width="681" height="884" loading="lazy" hidden
@@ -159,6 +166,7 @@
         <!-- 2 · Suéter de punto jacquard -->
         <li class="card" data-product data-id="sueter-jacquard" data-name="Suéter Jacquard" data-price="110">
           <div class="card__media">
+            <a class="card__link" href="sueter-jacquard.html" tabindex="-1" aria-hidden="true"></a>
             <img class="card__img" data-view="front" src="assets/img/jersey-jacquard-negro-frontal-atlas.webp" width="648" height="555"
                  alt="Suéter negro de punto Atlas, vista frontal con pequeño emblema en el pecho">
             <img class="card__img" data-view="back" src="assets/img/jersey-jacquard-negro-espalda-atlas.webp" width="622" height="552" loading="lazy" hidden
@@ -197,6 +205,7 @@
         <!-- 3 · Camiseta negra (manga corta) -->
         <li class="card" data-product data-id="camiseta-spiral" data-name="Camiseta «Spiral»" data-price="39">
           <div class="card__media">
+            <a class="card__link" href="camiseta-spiral.html" tabindex="-1" aria-hidden="true"></a>
             <img class="card__img" data-view="front" src="assets/img/camiseta-oversize-negra-frontal-atlas.webp" width="822" height="788"
                  alt="Camiseta negra Atlas, vista frontal con el emblema del titán en el pecho">
             <img class="card__img" data-view="back" src="assets/img/camiseta-oversize-negra-espalda-atlas.webp" width="830" height="812" loading="lazy" hidden
@@ -235,6 +244,7 @@
         <!-- 4 · Camiseta larga blanca -->
         <li class="card" data-product data-id="manga-larga-third-eye" data-name="Camiseta larga «Third Eye»" data-price="55">
           <div class="card__media">
+            <a class="card__link" href="manga-larga-third-eye.html" tabindex="-1" aria-hidden="true"></a>
             <img class="card__img" data-view="front" src="assets/img/camiseta-manga-larga-blanca-frontal-atlas.webp" width="624" height="556"
                  alt="Camiseta larga blanca Atlas, vista frontal con una mano y un ojo estampados">
             <img class="card__img" data-view="back" src="assets/img/camiseta-manga-larga-blanca-espalda-atlas.webp" width="640" height="570" loading="lazy" hidden
@@ -273,6 +283,7 @@
         <!-- 5 · Camiseta larga negra -->
         <li class="card" data-product data-id="manga-larga-the-cycle" data-name="Camiseta larga «The Cycle»" data-price="55">
           <div class="card__media">
+            <a class="card__link" href="manga-larga-the-cycle.html" tabindex="-1" aria-hidden="true"></a>
             <img class="card__img" data-view="front" src="assets/img/camiseta-manga-larga-negra-frontal-atlas.webp" width="822" height="769"
                  alt="Camiseta larga negra Atlas, vista frontal con una serpiente ouroboros y el texto «The cycle never ends»">
             <img class="card__img" data-view="back" src="assets/img/camiseta-manga-larga-negra-espalda-atlas.webp" width="823" height="811" loading="lazy" hidden
@@ -347,6 +358,7 @@
   <script src="js/main.js"></script>
   <script src="js/catalog.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/favorites.js"></script>
   <script src="js/cookies.js"></script>
 </body>
 </html>

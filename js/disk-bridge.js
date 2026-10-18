@@ -4,7 +4,7 @@
    En una web publicada (https://…) no hace nada.
 
    Problema: Firefox y Safari (y otros) dan a cada archivo .html su propio
-   almacenamiento. Resultado: la cesta y la elección de cookies «desaparecen»
+   almacenamiento. Resultado: la cesta, los favoritos y la elección de cookies «desaparecen»
    al cambiar de página, y reaparecen al volver a la página donde se hicieron.
 
    Solución: al pasar de una página a otra, los enlaces llevan una copia de la
@@ -18,7 +18,7 @@
 
   if (window.location.protocol !== "file:") return;
 
-  var KEYS = ["atlas_cart", "atlas_cookie_consent"];
+  var KEYS = ["atlas_cart", "atlas_cookie_consent", "atlas_favs"];
   var PARAM = "atlas_state";
 
   function enc(obj) {
