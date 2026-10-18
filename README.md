@@ -37,3 +37,7 @@ En `js/cart.js`, `CONFIG.checkoutUrl` está vacío y el botón «Finalizar compr
 - Hero con subtítulo y botón «Ver el primer drop»; botón de ficha «Ponte la armadura»; enlace «Avísame cuando abra» en ficha y cesta.
 - Pendiente antes de abrir la tienda: composición y cuidados, tabla de medidas, datos `Product` con `offers` (JSON-LD) y revisar el correo de contacto.
 - Favoritos (`favoritos.html`, `js/favorites.js`, `js/favorites-page.js`, `css/favorites.css`): corazón en cada prenda, icono con contador junto a la cesta y avisos de bajada de precio o pocas unidades cuando el visitante vuelve. Precio y stock se leen de `catalogo.html` (`data-price`, y `data-stock="low"` / `"out"` para marcar pocas unidades o agotada). Los avisos por correo necesitan conectar un proveedor (ver cabecera de `js/favorites-page.js`).
+
+## Seguridad
+Todo lo relativo a cabeceras HTTP, CSP, Cloudflare, protección de formularios y buenas prácticas está en `SEGURIDAD.md`.
+Archivos relacionados: `_headers`, `robots.txt`, `.well-known/security.txt`, `js/guard.js` (antispam de formularios) y la verificación de precios de `js/cart.js`.

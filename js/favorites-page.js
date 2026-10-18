@@ -128,7 +128,9 @@
   /* ---------- Avisos por correo ---------- */
   if (!form) return;
 
-  var TO = form.getAttribute("data-to") || "";
+  var G = window.AtlasGuard;
+  var guard = G ? G.attach(form, "favoritos") : null;
+  var TO = (G && G.addr(form)) || form.getAttribute("data-to") || "";
   var ENDPOINT = form.getAttribute("data-endpoint") || "";
   var status = document.getElementById("favs-mail-status");
   var email = document.getElementById("favs-email");
@@ -196,7 +198,12 @@
     setError(consent, consentErr, okConsent ? "" : "Marca la casilla para poder avisarte.");
     if (!okEmail) { email.focus(); return; }
     if (!okConsent) { consent.focus(); return; }
-    if (ENDPOINT) sendToEndpoint(email.value.trim()); else sendByMail(email.value.trim());
+    // Antispam: honeypot, tiempo mínimo y enfriamiento (js/guard.js)
+    var g = guard ? guard.pass() : { ok: true };
+    if (!g.ok) { status.textContent = g.silent ? "Hecho." : g.msg; return; }
+    var address = G ? G.clean(email.value, 254) : email.value.trim();
+    if (guard) guard.done();
+    if (ENDPOINT) sendToEndpoint(address); else sendByMail(address);
   });
 
   form.hidden = false;       // con JavaScript se muestra el formulario

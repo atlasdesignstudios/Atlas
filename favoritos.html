@@ -9,13 +9,13 @@
   <meta name="robots" content="noindex, follow">
   <meta name="theme-color" content="#000000">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Pirata+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Pirata+One&display=swap" rel="stylesheet" referrerpolicy="no-referrer">
 
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/cart.css">
@@ -87,7 +87,7 @@
         <h2 class="favs-mail__title" id="favs-mail-title">No te pierdas una bajada de precio</h2>
         <p class="favs-mail__text">Déjanos tu correo y te escribimos si alguna de tus prendas baja de precio o se queda con pocas unidades.</p>
 
-        <form class="favs-mail__form" id="favs-mail-form" data-to="atlasdesigntudios@gmail.com" data-endpoint="" novalidate hidden>
+        <form class="favs-mail__form" id="favs-mail-form" data-u="atlasdesigntudios" data-d="gmail.com" data-endpoint="" novalidate hidden>
           <div class="field">
             <label for="favs-email">Correo electrónico</label>
             <input type="email" id="favs-email" name="email" autocomplete="email" inputmode="email" required aria-required="true"
@@ -139,6 +139,7 @@
   <script src="js/main.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/favorites.js"></script>
+  <script src="js/guard.js"></script>
   <script src="js/favorites-page.js"></script>
   <script src="js/cookies.js"></script>
 </body>

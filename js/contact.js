@@ -5,8 +5,8 @@
    de correo del visitante con el mensaje ya redactado, y lo envía él.
    Ventaja: no se guardan ni se transmiten datos en ningún servidor nuestro.
 
-   Sin JavaScript el formulario no se muestra, y quedan visibles el correo y
-   el teléfono de la columna izquierda.
+   Sin JavaScript el formulario no se muestra, y queda visible el correo de
+   la columna izquierda.
    ========================================================================== */
 (function () {
   "use strict";
@@ -14,7 +14,9 @@
   var form = document.getElementById("contact-form");
   if (!form) return;
 
-  var TO = form.getAttribute("data-to") || "";
+  var G = window.AtlasGuard;
+  var guard = G ? G.attach(form, "contacto") : null;
+  var TO = (G && G.addr(form)) || form.getAttribute("data-to") || "";
   var MAX = 800;          // límite de caracteres del mensaje (los enlaces mailto no admiten textos largos)
   var status = document.getElementById("contact-status");
   var counter = document.getElementById("c-count");
@@ -68,9 +70,13 @@
     var invalid = validate();
     if (invalid) { invalid.focus(); return; }
 
-    var name = value(fields[0]);
-    var topic = value(fields[1]);
-    var message = value(fields[2]).slice(0, MAX);
+    // Antispam: honeypot, tiempo mínimo y enfriamiento (js/guard.js)
+    var g = guard ? guard.pass() : { ok: true };
+    if (!g.ok) { status.textContent = g.silent ? "Gracias. Tu mensaje está en camino." : g.msg; return; }
+
+    var name = G ? G.clean(value(fields[0]), 80) : value(fields[0]);
+    var topic = G ? G.clean(value(fields[1]), 80) : value(fields[1]);
+    var message = G ? G.clean(value(fields[2]), MAX, true) : value(fields[2]).slice(0, MAX);
 
     var subject = "[Atlas web] " + topic;
     var body = "Hola, soy " + name + ".\n\n" + message;
@@ -85,6 +91,7 @@
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    if (guard) guard.done();
 
     // Aviso por si el visitante no tiene programa de correo configurado
     status.textContent = "Se está abriendo tu programa de correo. Si no ocurre nada, escríbenos directamente a ";

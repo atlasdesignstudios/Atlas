@@ -20,12 +20,20 @@
   var CONFIG = {
     // URL de pago, p. ej. "https://tu-tienda.com/checkout". Vacío = pago desactivado.
     checkoutUrl: "",
+    // Dominios externos a los que se permite enviar al cliente a pagar (además de esta misma web).
+    // P. ej. ["buy.stripe.com", "checkout.shopify.com"]. Solo se admiten direcciones https.
+    checkoutHosts: [],
     storageKey: "atlas_cart",
     maxAgeDays: 30,        // la cesta caduca si no se toca en este tiempo
     maxPerLine: 10         // unidades máximas de una misma prenda y talla
   };
   var SIZES = ["S", "M", "L", "XL"];
   var IMG_OK = /^assets\/img\/[\w.-]+\.(png|jpe?g|webp)$/i;
+  var ID_OK = /^[\w-]{1,60}$/;
+  var CTRL = /[\u0000-\u001F\u007F\u2028\u2029]/g;
+  var MAX_LINES = 20;        // líneas máximas en la cesta (evita cestas gigantes que bloqueen el navegador)
+  var MAX_RAW = 20000;       // tamaño máximo (caracteres) de lo leído de localStorage
+  var MAX_CENTS = 200000;    // precio máximo razonable por prenda (2.000 €)
 
   // Raíz del sitio, calculada respecto a este archivo (sirve desde cualquier carpeta)
   var me = document.currentScript;
@@ -33,6 +41,18 @@
 
   var money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
   function fmt(cents) { return money.format(cents / 100); }
+
+  // Solo se acepta una URL de pago https de esta web o de un dominio de CONFIG.checkoutHosts
+  function safeCheckoutUrl() {
+    if (!CONFIG.checkoutUrl) return "";
+    try {
+      var u = new URL(CONFIG.checkoutUrl, window.location.href);
+      if (u.protocol !== "https:") return "";
+      if (u.hostname !== window.location.hostname && CONFIG.checkoutHosts.indexOf(u.hostname) < 0) return "";
+      return u.href;
+    } catch (e) { return ""; }
+  }
+  var CHECKOUT = safeCheckoutUrl();
 
 
   /* ---------- Estado y almacenamiento ---------- */
@@ -45,11 +65,12 @@
     var qty = parseInt(it.qty, 10);
     var cents = parseInt(it.cents, 10);
     var size = String(it.size || "");
-    if (!(qty >= 1) || !(cents >= 0) || SIZES.indexOf(size) < 0) return null;
+    var id = String(it.id || "");
+    if (!ID_OK.test(id) || !(qty >= 1) || !(cents >= 0) || cents > MAX_CENTS || SIZES.indexOf(size) < 0) return null;
     var img = String(it.img || "");
     return {
-      id: String(it.id || "").slice(0, 60),
-      name: String(it.name || "").slice(0, 120),
+      id: id,
+      name: String(it.name || "").replace(CTRL, "").slice(0, 120),
       size: size,
       cents: cents,
       qty: Math.min(qty, CONFIG.maxPerLine),
@@ -69,6 +90,7 @@
   // Devuelve los datos guardados si son válidos y no han caducado
   function parse(raw) {
     try {
+      if (typeof raw !== "string" || raw.length > MAX_RAW) return null;
       var d = JSON.parse(raw);
       if (!d || d.v !== 1 || !Array.isArray(d.items) || typeof d.ts !== "number") return null;
       if (Date.now() - d.ts > CONFIG.maxAgeDays * 86400000) return null;
@@ -90,7 +112,7 @@
 
   function load() {
     var d = readStored();
-    return d ? d.items.map(clean).filter(Boolean) : [];
+    return d ? d.items.slice(0, MAX_LINES).map(clean).filter(Boolean) : [];
   }
 
   function save() {
@@ -110,6 +132,37 @@
       if (items[i].id === id && items[i].size === size) return items[i];
     }
     return null;
+  }
+
+  /* ---------- Verificación de precios ----------
+     Lo guardado en localStorage lo puede editar cualquiera desde su navegador, así que nada de
+     lo guardado se da por bueno: cada línea se compara con catalogo.html (la fuente de precios)
+     y se corrige o se elimina. Importante: esto protege la interfaz, no el cobro. El importe
+     real debe volver a calcularlo siempre la pasarela de pago o el servidor. */
+  function verify() {
+    if (FROM_DISK || !items.length) return Promise.resolve(false);
+    return fetch(ROOT + "catalogo.html", { cache: "no-cache", credentials: "omit" })
+      .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.text(); })
+      .then(function (html) {
+        var doc = new DOMParser().parseFromString(html, "text/html");
+        var known = Object.create(null);
+        Array.prototype.forEach.call(doc.querySelectorAll("[data-product]"), function (c) {
+          var p = readProduct(c);
+          if (ID_OK.test(p.id) && p.cents >= 0 && p.cents <= MAX_CENTS) known[p.id] = p;
+        });
+        var out = [], changed = false;
+        items.forEach(function (it) {
+          var k = known[it.id];
+          if (!k) { changed = true; return; }          // prenda que ya no existe: se quita
+          var name = k.name.replace(CTRL, "").slice(0, 120);
+          if (it.cents !== k.cents || it.name !== name || it.img !== k.img) {
+            it.cents = k.cents; it.name = name; it.img = k.img; changed = true;
+          }
+          out.push(it);
+        });
+        if (changed) { items = out; save(); render(); }
+        return true;
+      });
   }
 
   function totals() {
@@ -298,8 +351,8 @@
     listEl.hidden = t.qty === 0;
     footEl.hidden = t.qty === 0;
     totalEl.textContent = fmt(t.cents);
-    checkoutBtn.disabled = !CONFIG.checkoutUrl;
-    soonEl.hidden = !!CONFIG.checkoutUrl;
+    checkoutBtn.disabled = !CHECKOUT;
+    soonEl.hidden = !!CHECKOUT;
   }
 
 
@@ -357,7 +410,18 @@
     if (t.closest("[data-cart-close]")) { close(); return; }
 
     if (t.closest("[data-cart-checkout]")) {
-      if (CONFIG.checkoutUrl) window.location.href = CONFIG.checkoutUrl;
+      if (CHECKOUT) {
+        // Antes de pagar se vuelven a comprobar los precios con el catálogo
+        checkoutBtn.disabled = true;
+        verify().then(function (ok) {
+          checkoutBtn.disabled = false;
+          if (ok && items.length) window.location.href = CHECKOUT;
+        }).catch(function () {
+          checkoutBtn.disabled = false;
+          soonEl.hidden = false;
+          soonEl.textContent = "No hemos podido verificar los precios. Inténtalo de nuevo en un momento.";
+        });
+      }
       return;
     }
 
@@ -430,6 +494,7 @@
   /* ---------- Arranque ---------- */
   build();
   render();
+  verify().catch(function () { /* sin conexión: se vuelve a comprobar al pagar */ });
 
   // Con JavaScript: se muestran el botón de la cesta y los selectores de talla
   Array.prototype.forEach.call(document.querySelectorAll("[data-cart-open], .card__buy"), function (n) { n.hidden = false; });

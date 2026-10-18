@@ -57,6 +57,7 @@
 
   function parse(raw) {
     try {
+      if (typeof raw !== "string" || raw.length > 40000) return null;
       var d = JSON.parse(raw);
       if (!d || d.v !== 1 || !Array.isArray(d.items) || typeof d.ts !== "number") return null;
       if (Date.now() - d.ts > MAX_AGE_DAYS * 86400000) return null;
@@ -67,7 +68,7 @@
   function load() {
     var d = null;
     try { d = parse(window.localStorage.getItem(KEY)); } catch (e) { /* sin acceso */ }
-    return d ? d.items.map(clean).filter(Boolean).slice(0, MAX_ITEMS) : [];
+    return d ? d.items.slice(0, MAX_ITEMS).map(clean).filter(Boolean) : [];
   }
 
   var items = load();
@@ -127,7 +128,7 @@
 
   /* ---------- Datos actuales desde catalogo.html ---------- */
   function readProducts(root) {
-    var out = {};
+    var out = Object.create(null);
     Array.prototype.forEach.call(root.querySelectorAll("[data-product]"), function (el) {
       var id = el.getAttribute("data-id") || "";
       var price = parseFloat(el.getAttribute("data-price"));

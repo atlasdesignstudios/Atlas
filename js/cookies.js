@@ -81,7 +81,7 @@
           '<p id="ck-desc">Usamos almacenamiento técnico imprescindible para que la web funcione. ' +
           'Las cookies de analítica y marketing solo se activan si las aceptas. ' +
           'Puedes aceptarlas, rechazarlas o elegir por categorías. ' +
-          'Más información en la <a href="' + policyUrl + '">Política de cookies</a>.</p>' +
+          'Más información en la <a data-policy href="#">Política de cookies</a>.</p>' +
         '</div>' +
         '<div class="cookie-banner__actions">' +
           '<button type="button" class="cookie-btn" data-ck="reject">Rechazar todas</button>' +
@@ -109,6 +109,7 @@
           '<button type="submit" class="cookie-btn">Guardar selección</button>' +
         '</div>' +
       '</form>';
+    el.querySelector("[data-policy]").href = policyUrl;   // la URL se asigna por DOM, no dentro del HTML
     document.body.appendChild(el);
     return el;
   }

@@ -22,7 +22,9 @@
   var form = document.getElementById("vip-form");
   if (!form) return;
 
-  var TO = form.getAttribute("data-to") || "";
+  var G = window.AtlasGuard;
+  var guard = G ? G.attach(form, "vip") : null;
+  var TO = (G && G.addr(form)) || form.getAttribute("data-to") || "";
   var ENDPOINT = form.getAttribute("data-endpoint") || "";
   var status = document.getElementById("vip-status");
   var email = document.getElementById("vip-email");
@@ -112,7 +114,12 @@
     if (!okEmail) { email.focus(); return; }
     if (!okConsent) { consent.focus(); return; }
 
-    var address = email.value.trim();
+    // Antispam: honeypot, tiempo mínimo y enfriamiento (js/guard.js)
+    var g = guard ? guard.pass() : { ok: true };
+    if (!g.ok) { say(g.silent ? "Hecho." : g.msg); return; }
+
+    var address = G ? G.clean(email.value, 254) : email.value.trim();
+    if (guard) guard.done();
     if (ENDPOINT) sendToEndpoint(address);
     else sendByMail(address);
   });
