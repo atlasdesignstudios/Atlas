@@ -39,6 +39,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Pirata+One&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/lookbook.css">
   <link rel="stylesheet" href="css/cart.css">
   <link rel="stylesheet" href="css/favorites.css">
 
@@ -148,29 +149,50 @@
       </ul>
     </section>
 
-    <!-- ============ AVANCE DE COLECCIÓN ============
-         Dos piezas destacadas; ambas llevan al catálogo completo. -->
-    <section class="preview" aria-labelledby="avance-title">
-      <h2 class="preview__kicker" id="avance-title">Avance de colección</h2>
-
-      <ul class="preview__grid">
-        <li>
-          <a class="preview__card" href="hoodie-zip-choices.html">
-            <span class="preview__media">
-              <img src="assets/img/hoodie-zip-negro-frontal-atlas.webp" alt="Hoodie Zip «Choices», vista frontal" width="710" height="902" loading="lazy">
-            </span>
-            <span class="preview__name">Hoodie Zip «Choices»</span>
-            <span class="preview__price">89&nbsp;€</span>
-          </a>
+    <!-- LOOKBOOK · EN LA CALLE
+       Espacio preparado para fotos reales. Para activar una foto, sustituye el <div class="look__slot"> de su <li>
+       por: <img src="assets/img/NOMBRE.webp" width="800" height="1000" loading="lazy" alt="Describe la foto">
+       y cambia el texto del <figcaption>. Las fotos se ven en blanco y negro con grano de forma automática. -->
+    <section class="lookbook" aria-labelledby="lookbook-title">
+      <p class="lookbook__kicker">Lookbook</p>
+      <h2 class="lookbook__title" id="lookbook-title">En la calle</h2>
+      <p class="lookbook__lead">Noche, hormigón y grano analógico. Las primeras fotos llegan con el primer drop.</p>
+      <ul class="lookbook__grid">
+        <li class="look look--tall">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 01 · Próximamente</figcaption>
+          </figure>
         </li>
-        <li>
-          <a class="preview__card" href="sueter-jacquard.html">
-            <span class="preview__media">
-              <img src="assets/img/jersey-jacquard-negro-frontal-atlas.webp" alt="Suéter Jacquard, vista frontal" width="648" height="555" loading="lazy">
-            </span>
-            <span class="preview__name">Suéter Jacquard</span>
-            <span class="preview__price">110&nbsp;€</span>
-          </a>
+        <li class="look">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 02 · Próximamente</figcaption>
+          </figure>
+        </li>
+        <li class="look">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 03 · Próximamente</figcaption>
+          </figure>
+        </li>
+        <li class="look">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 04 · Próximamente</figcaption>
+          </figure>
+        </li>
+        <li class="look look--wide">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 05 · Próximamente</figcaption>
+          </figure>
+        </li>
+        <li class="look">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 06 · Próximamente</figcaption>
+          </figure>
         </li>
       </ul>
 
