@@ -1,43 +1,87 @@
-# Atlas — web estática
+# Atlas — Next.js + TypeScript
 
-HTML, CSS y JavaScript sin dependencias ni paso de compilación. Se abre con doble clic en `index.html` o se sube tal cual a cualquier alojamiento.
+Versión moderna de la web de Atlas. Misma apariencia y mismas funciones
+(catálogo, fichas, cesta, favoritos, formularios por correo), pero con los
+precios y productos en **un solo archivo** y sin HTML duplicado.
 
-## Estructura
-- `index.html`, `catalogo.html`, `nosotros.html`, `contacto.html`, `404.html`
-- `legal/` — aviso legal, privacidad, cookies y condiciones de venta (con campos `[entre corchetes]` por completar)
-- `css/` — `styles.css` (base, hero, cookies), `catalog.css`, `cart.css`, `pages.css` (Nosotros y Contacto), `legal.css`
-- `js/` — `cart.js` (cesta), `cookies.js` (consentimiento), `catalog.js`, `contact.js`, `main.js` (menú), `disk-bridge.js` (solo al abrir desde el disco)
-- `_headers`, `robots.txt`, `sitemap.xml`
+Es una web **estática**: `next build` genera una carpeta `out/` que se sube
+tal cual a Netlify, Cloudflare Pages, Vercel o GitHub Pages (todos con planes
+gratis).
 
-## Cambiar un producto
-En `catalogo.html`, cada prenda es un `<li class="card" data-product …>`. **El precio está en dos sitios y deben coincidir:** el atributo `data-price` (lo que cobra la cesta) y el texto de `card__price` (lo que ve el cliente).
+## Requisitos
+
+- [Node.js](https://nodejs.org) 20 o superior (una sola vez, en tu ordenador)
+
+## Ponerla en marcha
+
+```bash
+cd atlas-next
+npm install        # la primera vez (descarga dependencias)
+npm run dev        # servidor de desarrollo → http://localhost:3000
+npm run build      # genera la web final en out/ (esta es la que se publica)
+```
+
+## Cambiar precios, nombres o añadir prendas
+
+**Todo está en `lib/products.ts`.** Se cambia el precio ahí y se actualiza solo:
+catálogo, ficha, cesta, favoritos y el JSON-LD. Ya no hay que sincronizar
+`data-price` con el texto de la tarjeta.
+
+- `cents` es el precio en euros **en céntimos** (con IVA): `8900` = 89 €.
+- `stock: "low"` marca «pocas unidades» y `"out"` marca «agotada».
+- Para añadir una prenda: copia un bloque del array, cambia los datos y pon las
+  imágenes en `public/assets/img/`. La nueva ficha se genera sola.
 
 ## Activar el pago
-En `js/cart.js`, `CONFIG.checkoutUrl` está vacío y el botón «Finalizar compra» queda desactivado. Cuando tengas pasarela de pago o tienda, pon ahí la dirección. Los precios deben validarse siempre en el servidor, nunca fiarse de la cesta del navegador.
 
-## SEO: qué cambiar cuando tengas el dominio definitivo
-1. Sustituye `https://www.atlasstudiobrand.com` por tu dominio en todos los `.html`, en `sitemap.xml` y en `robots.txt`.
-2. Da de alta el sitio en Google Search Console y envía `sitemap.xml`.
-3. Cuando actives el pago, añade datos estructurados `Product` con `offers` en el catálogo (hay una nota en el código).
-4. Actualiza `lastmod` del sitemap al cambiar contenido.
+1. Elige pasarela (Stripe Checkout, Shopify, Redsys…) y crea la sesión de pago
+   en un servidor (p. ej. Vercel Functions o una Function de Netlify).
+2. La cesta está preparada para eso: `lib/cart.tsx` guarda líneas con `slug`,
+   `size` y `cents` validados contra el catálogo.
+3. **El importe real debe calcularlo siempre el servidor o la pasarela**, nunca
+   el navegador (la verificación de precios de la interfaz solo pinta la UI).
+4. Cuando se pueda comprar, añade `offers` al JSON-LD de `app/[slug]/page.tsx`.
 
-## Publicar
-- **Netlify / Cloudflare Pages:** arrastra la carpeta o conecta el repositorio de GitHub. `_headers` se aplica solo.
-- **GitHub Pages:** sube la carpeta a un repositorio y activa Pages (Settings → Pages). No admite `_headers`; la política de seguridad ya va en cada página.
-- Revisa siempre las condiciones de uso comercial del plan gratuito que elijas.
+## Qué ha cambiado respecto a la web estática
 
-## Pendiente antes de publicar
-- Completar los campos `[entre corchetes]` de `legal/` y quitar los avisos de borrador.
-- Alojar las tipografías (Jost y Pirata One) en `assets/fonts/` en vez de cargarlas desde Google Fonts, por privacidad (RGPD).
-- Confirmar que tienes derechos sobre las ilustraciones y fotografías de las prendas y del fondo.
+| Antes | Ahora |
+|---|---|
+| Precio en 3 sitios por prenda | `lib/products.ts`, una sola vez |
+| Cabecera, pie y cesta copiados en 15 HTML | `components/Header.tsx`, `Footer.tsx`, `CartDrawer.tsx` |
+| Google Fonts (IP del visitante a Google) | `next/font`: se autoalojan en el build (RGPD resuelto) |
+| `cart.js` + `favorites.js` (~35 KB imperativos) | hooks de React con el mismo comportamiento |
+| CSP con `script-src 'self'` | `script-src 'self' 'unsafe-inline'` (lo necesita la hidratación de Next) |
+| Doble clic en `index.html` | `npm run dev` (necesita Node.js) |
 
-## Novedades (17 oct 2026)
-- Una página por prenda (`hoodie-zip-choices.html`, `sueter-jacquard.html`, `camiseta-spiral.html`, `manga-larga-third-eye.html`, `manga-larga-the-cycle.html`), con acordeones, migas de pan y datos estructurados de ruta.
-- Imágenes en WebP con nombres descriptivos (`hoodie-zip-negro-espalda-atlas.webp`…): de ~6 MB a ~1,3 MB.
-- Hero con subtítulo y botón «Ver el primer drop»; botón de ficha «Ponte la armadura»; enlace «Avísame cuando abra» en ficha y cesta.
-- Pendiente antes de abrir la tienda: composición y cuidados, tabla de medidas, datos `Product` con `offers` (JSON-LD) y revisar el correo de contacto.
-- Favoritos (`favoritos.html`, `js/favorites.js`, `js/favorites-page.js`, `css/favorites.css`): corazón en cada prenda, icono con contador junto a la cesta y avisos de bajada de precio o pocas unidades cuando el visitante vuelve. Precio y stock se leen de `catalogo.html` (`data-price`, y `data-stock="low"` / `"out"` para marcar pocas unidades o agotada). Los avisos por correo necesitan conectar un proveedor (ver cabecera de `js/favorites-page.js`).
+## Estructura
 
-## Seguridad
-Todo lo relativo a cabeceras HTTP, CSP, Cloudflare, protección de formularios y buenas prácticas está en `SEGURIDAD.md`.
-Archivos relacionados: `_headers`, `robots.txt`, `.well-known/security.txt`, `js/guard.js` (antispam de formularios) y la verificación de precios de `js/cart.js`.
+```
+app/
+  layout.tsx          cabecera, pie, cesta, cookies y tipografías
+  page.tsx            portada
+  catalogo/           catálogo
+  [slug]/             ficha de cada prenda (se genera de lib/products.ts)
+  nosotros/ contacto/ favoritos/
+  not-found.tsx       página 404
+  css/                la CSS original, sin tocar
+components/           Header, Footer, CartDrawer, Gallery, AddToCart…
+lib/
+  products.ts         ★ los productos y precios
+  cart.tsx            cesta (localStorage, 30 días, precios verificados)
+  favorites.tsx       favoritos
+public/
+  assets/img/         imágenes
+  legal/              las 4 páginas legales (HTML estático, sin tocar)
+  _headers            cabeceras de seguridad (Netlify/Cloudflare)
+  robots.txt sitemap.xml
+```
+
+## Pendiente (igual que antes)
+
+- Completar los campos `[entre corchetes]` de `public/legal/*.html`.
+- Subir `.well-known/security.txt` (no viene en el proyecto).
+- Composición, cuidados y tabla de medidas en las fichas.
+- Optimizar `public/assets/img/logo.png` (475 KB → ~30 KB en WebP) y
+  `ojos-espiral-atlas.webp` (685 KB → ~250 KB).
+- Redirects: las URLs antiguas (`/catalogo.html`) conviene redirigirlas a las
+  nuevas (`/catalogo`) con `_redirects` de Netlify o equivalentes de Cloudflare.
