@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas | We rule the city</title>
+  <meta name="description" content="Atlas es una marca independiente de streetwear en blanco y negro: hoodie con cremallera, suéter jacquard, camisetas y camisetas largas. Primer drop.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://www.atlasstudiobrand.com/">
+  <meta name="theme-color" content="#000000">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+
+  <!-- Al compartir el enlace (WhatsApp, Instagram, X…) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Atlas">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Atlas — Streetwear en blanco y negro | We rule the city">
+  <meta property="og:description" content="Atlas es una marca independiente de streetwear en blanco y negro: hoodie con cremallera, suéter jacquard, camisetas y camisetas largas. Primer drop.">
+  <meta property="og:url" content="https://www.atlasstudiobrand.com/">
+  <meta property="og:image" content="https://www.atlasstudiobrand.com/assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Collage en blanco y negro: una espiral, un pasillo de líneas y el nombre Atlas en letra gótica dentro de un ojo">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Atlas — Streetwear en blanco y negro | We rule the city">
+  <meta name="twitter:description" content="Atlas es una marca independiente de streetwear en blanco y negro: hoodie con cremallera, suéter jacquard, camisetas y camisetas largas. Primer drop.">
+  <meta name="twitter:image" content="https://www.atlasstudiobrand.com/assets/img/og.jpg">
+  <link rel="preload" as="image" href="assets/img/hero_bg.webp" fetchpriority="high">
+
+  <!-- Tipografías:
+       · Pirata One → blackletter gótica de Google Fonts, de estilo Chrome Hearts
+       · Jost           → sans-serif minimalista para menú y botón
+       Si tienes Cloister Black, mira el bloque @font-face en css/styles.css -->
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Pirata+One&display=swap" rel="stylesheet" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/lookbook.css">
+  <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/favorites.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.atlasstudiobrand.com/#organization",
+      "name": "Atlas",
+      "url": "https://www.atlasstudiobrand.com/",
+      "logo": "https://www.atlasstudiobrand.com/assets/img/logo.png",
+      "email": "atlasdesigntudios@gmail.com",
+      "description": "Marca independiente de streetwear en blanco y negro con base en Valencia."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.atlasstudiobrand.com/#website",
+      "url": "https://www.atlasstudiobrand.com/",
+      "name": "Atlas",
+      "inLanguage": "es",
+      "publisher": {
+        "@id": "https://www.atlasstudiobrand.com/#organization"
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#contenido">Skip to content</a>
+
+  <!-- ============ HEADER ============
+       Escritorio: [Catálogo]  [LOGO]  [Nosotros · Contacto]
+       Móvil: botón de menú a la izquierda y logo centrado -->
+  <header class="site-header" id="inicio">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
+      <span class="menu-toggle__bars" aria-hidden="true"></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+
+    <a class="logo" href="#inicio" aria-label="Atlas, ir al inicio">
+      <img src="assets/img/logo.png" alt="Atlas" width="896" height="1199">
+    </a>
+
+    <nav class="site-nav" id="menu" aria-label="Principal">
+      <ul class="nav-list nav-list--left">
+        <li><a href="catalogo.html">Catálogo</a></li>
+      </ul>
+      <ul class="nav-list nav-list--right">
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <!-- Cesta: js/cart.js la muestra y rellena el contador -->
+    <button class="cart-button" type="button" data-cart-open aria-haspopup="dialog" aria-controls="cart" aria-label="Open the cart" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5.5 8h13l-1.2 12H6.7L5.5 8z"/>
+        <path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>
+      </svg>
+      <span class="cart-count" data-cart-count hidden>0</span>
+    </button>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ============ HERO ============ -->
+    <!-- El fondo (assets/img/hero_bg.webp) es un collage decorativo: espiral en blanco y negro
+         con el nombre «Atlas» dentro de un ojo en el centro. -->
+    <section class="hero" aria-labelledby="hero-title">
+
+      <!-- Título principal (blackletter) -->
+      <h1 class="hero__title" id="hero-title">WE RULE THE CITY</h1>
+
+      <!-- Botón principal: lleva a la página de catálogo -->
+      <a class="btn" href="catalogo.html">Ver primer drop</a>
+    </section>
+
+    <!-- ============ MENSAJE DE MARCA + VENTAJAS ============ -->
+    <section class="manifesto" aria-labelledby="manifiesto-title">
+      <div class="manifesto__intro">
+        <div class="manifesto__copy">
+          <h2 class="manifesto__quote" id="manifiesto-title">Atlas dresses those who carry their own world</h2>
+          <p class="manifesto__text">Atlas es una marca independiente de <strong>streetwear en blanco y negro</strong>: hoodie con cremallera, suéter jacquard, camisetas y camisetas largas con gráficos de carácter. Descubre el primer drop y encuentra tu talla, de la S a la XL.</p>
+        </div>
+        <figure class="manifesto__media">
+          <img src="assets/img/ojos-espiral-atlas.webp" alt="Animación en blanco y negro de ojos girando en espiral hacia el centro" width="540" height="540" loading="lazy">
+        </figure>
+      </div>
+
+      <ul class="perks">
+        <li class="perk">
+          <p class="perk__title">First drop</p>
+          <p class="perk__text">Cinco piezas en blanco y negro, diseñadas por Atlas.</p>
+        </li>
+        <li class="perk">
+          <p class="perk__title">Devolución en 14 días</p>
+          <p class="perk__text">Si no es lo que esperabas, puedes desistir sin dar explicaciones. <a href="legal/condiciones-venta.html#desistimiento">Cómo hacerlo</a></p>
+        </li>
+        <li class="perk">
+          <p class="perk__title">Garantía legal</p>
+          <p class="perk__text">Todas las prendas cuentan con la garantía legal de conformidad. <a href="legal/condiciones-venta.html#garantia">Más información</a></p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- LOOKBOOK · EN LA CALLE
+       Espacio preparado para fotos reales. Para activar una foto, sustituye el <div class="look__slot"> de su <li>
+       por: <img src="assets/img/NOMBRE.webp" width="800" height="1000" loading="lazy" alt="Describe la foto">
+       y cambia el texto del <figcaption>. Las fotos se ven en blanco y negro con grano de forma automática. -->
+    <section class="lookbook" aria-labelledby="lookbook-title">
+      <p class="lookbook__kicker">Lookbook</p>
+      <h2 class="lookbook__title" id="lookbook-title">On the street</h2>
+      <p class="lookbook__lead">Noche, hormigón y grano analógico. Las primeras fotos llegan con el primer drop.</p>
+      <ul class="lookbook__grid">
+        <li class="look look--tall">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 01 · Coming soon</figcaption>
+          </figure>
+        </li>
+        <li class="look">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 02 · Coming soon</figcaption>
+          </figure>
+        </li>
+        <li class="look">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 03 · Coming soon</figcaption>
+          </figure>
+        </li>
+        <li class="look">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 04 · Coming soon</figcaption>
+          </figure>
+        </li>
+        <li class="look look--wide">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 05 · Coming soon</figcaption>
+          </figure>
+        </li>
+        <li class="look">
+          <figure class="look__frame">
+            <div class="look__slot" aria-hidden="true"></div>
+            <figcaption class="look__cap">Look 06 · Coming soon</figcaption>
+          </figure>
+        </li>
+      </ul>
+
+      <a class="btn" href="catalogo.html">Ver Catálogo</a>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER LEGAL ============
+       Enlaces legales siempre visibles (LSSI-CE, art. 10) y acceso para
+       cambiar la elección de cookies en cualquier momento. -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p class="site-footer__brand">Atlas</p>
+
+      <nav aria-label="Información legal">
+        <ul class="legal-links">
+          <li><a href="legal/aviso-legal.html">Aviso legal</a></li>
+          <li><a href="legal/privacidad.html">Política de privacidad</a></li>
+          <li><a href="legal/cookies.html">Política de cookies</a></li>
+          <li><a href="legal/condiciones-venta.html">Condiciones de venta</a></li>
+          <li><button type="button" data-cookie-settings>Configurar cookies</button></li>
+        </ul>
+      </nav>
+
+      <p class="site-footer__copy">
+        © 2026 Dayae Hamioud · NIF X9517224P ·
+        <a href="mailto:atlasdesigntudios@gmail.com">atlasdesigntudios@gmail.com</a><br>
+        Todos los derechos reservados. Atlas es una marca de Dayae Hamioud.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Solo actúa al abrir los archivos desde el disco (file://); debe ir antes de cart.js y cookies.js -->
+  <script src="js/disk-bridge.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/favorites.js"></script>
+  <!-- Aviso de cookies: debe cargarse en todas las páginas -->
+  <script src="js/cookies.js"></script>
+</body>
+</html>
