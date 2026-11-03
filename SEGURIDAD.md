@@ -38,14 +38,14 @@ Dos verdades incómodas:
 CSP en cabecera:
 
 ```
-Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
 ```
 
 Qué significa cada decisión:
 
 - `default-src 'none'`: lo que no se permita expresamente, se bloquea.
 - `script-src 'self'`: solo se ejecutan scripts de tu propia web. Sin `'unsafe-inline'` ni `'unsafe-eval'`: un XSS no podría ejecutar nada. Los bloques `application/ld+json` (SEO) no son código y no se ven afectados.
-- `style-src 'self' https://fonts.googleapis.com` y `font-src https://fonts.gstatic.com`: lo mínimo para Google Fonts. No hay estilos en línea en el HTML.
+- `style-src 'self'` y `font-src 'self'`: las fuentes (Pirata One y Jost) se alojan en `assets/fonts/`, así que no hace falta permitir Google Fonts. No hay estilos en línea en el HTML.
 - `img-src 'self' data:`: `data:` es necesario solo para el grano del lookbook (SVG en el CSS).
 - `connect-src 'self'`: el JavaScript solo puede hablar con tu web. **Si conectas un proveedor de newsletter, de formularios o de pago, hay que añadir su dominio aquí.**
 - `form-action 'self'`, `frame-ancestors 'none'`, `object-src 'none'`: ni formularios hacia fuera, ni iframes ajenos, ni plugins.

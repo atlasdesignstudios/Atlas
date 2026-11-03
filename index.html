@@ -9,7 +9,7 @@
   <link rel="canonical" href="https://www.atlasstudiobrand.com/">
   <meta name="theme-color" content="#000000">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 
   <!-- Al compartir el enlace (WhatsApp, Instagram, X…) -->
   <meta property="og:type" content="website">
@@ -26,7 +26,8 @@
   <meta name="twitter:title" content="Atlas — Streetwear en blanco y negro | We rule the city">
   <meta name="twitter:description" content="Atlas es una marca independiente de streetwear en blanco y negro: hoodie con cremallera, suéter jacquard, camisetas y camisetas largas. Primer drop.">
   <meta name="twitter:image" content="https://www.atlasstudiobrand.com/assets/img/og.jpg">
-  <link rel="preload" as="image" href="assets/img/hero_bg.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/img/hero_bg-movil.webp" media="(max-width: 760px)" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/img/hero_bg-1800.webp" media="(min-width: 761px)" fetchpriority="high">
 
   <!-- Tipografías:
        · Pirata One → blackletter gótica de Google Fonts, de estilo Chrome Hearts
@@ -34,9 +35,8 @@
        Si tienes Cloister Black, mira el bloque @font-face en css/styles.css -->
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Pirata+One&display=swap" rel="stylesheet" referrerpolicy="no-referrer">
+  <link rel="preload" href="assets/fonts/pirata-one-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/lookbook.css">
@@ -84,7 +84,7 @@
     </button>
 
     <a class="logo" href="#inicio" aria-label="Atlas, ir al inicio">
-      <img src="assets/img/logo.png" alt="Atlas" width="896" height="1199">
+      <img src="assets/img/logo-header.webp" alt="Atlas" width="242" height="324" fetchpriority="high" decoding="async">
     </a>
 
     <nav class="site-nav" id="menu" aria-label="Principal">
@@ -110,7 +110,7 @@
   <main id="contenido">
 
     <!-- ============ HERO ============ -->
-    <!-- El fondo (assets/img/hero_bg.webp) es un collage decorativo: espiral en blanco y negro
+    <!-- El fondo (assets/img/hero_bg-1800.webp) es un collage decorativo: espiral en blanco y negro
          con el nombre «Atlas» dentro de un ojo en el centro. -->
     <section class="hero" aria-labelledby="hero-title">
 
@@ -129,7 +129,10 @@
           <p class="manifesto__text">Atlas es una marca independiente de <strong>streetwear en blanco y negro</strong>: hoodie con cremallera, suéter jacquard, camisetas y camisetas largas con gráficos de carácter. Descubre el primer drop y encuentra tu talla, de la S a la XL.</p>
         </div>
         <figure class="manifesto__media">
-          <img src="assets/img/ojos-espiral-atlas.webp" alt="Animación en blanco y negro de ojos girando en espiral hacia el centro" width="540" height="540" loading="lazy">
+          <picture>
+            <source media="(max-width: 760px)" srcset="assets/img/ojos-espiral-atlas-400.webp" width="400" height="400">
+            <img src="assets/img/ojos-espiral-atlas.webp" alt="Animación en blanco y negro de ojos girando en espiral hacia el centro" width="540" height="540" loading="lazy" decoding="async">
+          </picture>
         </figure>
       </div>
 
