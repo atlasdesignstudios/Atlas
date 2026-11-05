@@ -248,7 +248,7 @@
     checkoutBtn = el("button", "btn btn--block", "Finalizar compra");
     checkoutBtn.type = "button";
     checkoutBtn.setAttribute("data-cart-checkout", "");
-    soonEl = el("p", "cart__note cart__soon", La compra estará disponible cuando abramos la tienda. ");
+    soonEl = el("p", "cart__note cart__soon", "La compra estará disponible cuando abramos la tienda.");
     var notify = el("a", "", "Avísame cuando abramos");
     notify.href = ROOT + "nosotros.html#lista-vip";
     soonEl.appendChild(notify);
