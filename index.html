@@ -26,7 +26,7 @@
   <meta name="twitter:title" content="Lusius — Streetwear en blanco y negro | We rule the city">
   <meta name="twitter:description" content="Lusius es una casa independiente de streetwear en blanco y negro con base en Valencia: hoodie con cremallera, suéter jacquard, camisetas y camisetas largas. Primer drop.">
   <meta name="twitter:image" content="https://www.lusiusbrand.com/assets/img/og-lusius.png">
-  <link rel="preload" as="image" href="assets/img/lusius-emblem.png" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/img/hero-eye-lusius.jpg" fetchpriority="high">
 
   <!-- Tipografías:
        · Cinzel → mayúsculas romanas, voz de la casa
@@ -113,7 +113,20 @@
     <!-- Composición propia: el emblema del titán como marca de agua, luz cálida
          y tipografía imperial. No se reutiliza el collage antiguo del fondo. -->
     <section class="hero" aria-labelledby="hero-title">
-      <img class="hero__emblem" src="assets/img/lusius-emblem.png" alt="" width="460" height="700" aria-hidden="true">
+      <!-- Fondo animado: ojo psicodélico e hipnótico -->
+      <div class="hero__bg" aria-hidden="true">
+        <svg class="hero__svg-filter" width="0" height="0" aria-hidden="true">
+          <filter id="hypnotic-waves">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="2" result="noise">
+              <animate attributeName="baseFrequency" dur="14s" values="0.012 0.016; 0.022 0.026; 0.012 0.016" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </svg>
+        <img class="hero__bg-img" src="assets/img/hero-eye-lusius.jpg" alt="" width="826" height="1024">
+        <div class="hero__bg-glow"></div>
+        <div class="hero__bg-overlay"></div>
+      </div>
 
       <div class="hero__content">
         <p class="hero__eyebrow">Casa Lusius · Valencia</p>
