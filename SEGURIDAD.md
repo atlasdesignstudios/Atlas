@@ -101,21 +101,21 @@ que quedaba con datos dinámicos era el del aviso de cookies (la URL de la polí
 - **Límites contra agotar el navegador**: máximo 20 líneas, 20.000 caracteres leídos de `localStorage` y precio máximo de 2.000 € por prenda. Se recorta *antes* de procesar, para que una cesta gigante no bloquee la pestaña.
 - **Texto limpio**: se eliminan caracteres de control de los nombres.
 - **Verificación de precios** (`verify()`): al abrir cualquier página y antes de pagar, cada línea se compara con `catalogo.html`. Si el precio no coincide se corrige; si la prenda no existe se elimina.
-- **URL de pago validada**: solo `https`, y solo de tu dominio o de los que pongas en `CONFIG.checkoutHosts`. Una URL `javascript:` o de otro dominio no activa el botón.
+- **Pago desactivado de forma deliberada**: el carrito ya no acepta una URL estática configurada en JavaScript. El botón seguirá bloqueado hasta que el backend valide el catálogo, stock y total y cree una sesión de pago.
 - Se usa `Object.create(null)` para los catálogos (un id llamado `__proto__` no puede alterar el objeto).
 
 `js/favorites.js`: mismos límites, y se recorta antes de procesar.
 
 `js/cookies.js`: sin cadenas de texto con datos dentro de `innerHTML`.
 
-Para probarlo, el carrito se ha verificado con 21 pruebas automáticas (ids con comillas, precios negativos, JSON gigante, `javascript:` en imagen y en URL de pago, etc.).
+La CI incorporada ejecuta comprobaciones de referencias locales, IDs duplicados, metadatos HTML, sitemap y sintaxis JavaScript. No sustituye pruebas funcionales en navegador ni pruebas de compra; estas deberán añadirse antes de activar pagos.
 
 ### 2.3 Manipulación de precios: la regla de oro
 
 `localStorage` lo puede editar cualquiera desde las herramientas del navegador. `verify()` evita que la *interfaz* muestre precios falsos,
 pero **no protege el cobro**. Cuando actives pagos:
 
-- Usa una pasarela que fije el precio en su servidor (por ejemplo, enlaces de pago de Stripe con el precio ya definido para cada producto, o Shopify/Lemon Squeezy).
+- Usa una integración de servidor como Stripe Checkout y crea sesiones desde el backend; no uses enlaces estáticos de pago para un carrito dinámico.
 - Envía al pago solo *id + talla + cantidad*, nunca el importe, y que sea la pasarela quien calcule el total.
 - No guardes claves ni precios de confianza en `cart.js`. Con Stripe Checkout alojado, el navegador debe llamar al endpoint propio del backend; el servidor crea la sesión y calcula importes desde su catálogo. Mantén el webhook firmado en el backend. Revisa CSP solo según el modo de integración elegido. Consulta `docs/PAGOS-STRIPE.md`.
 
