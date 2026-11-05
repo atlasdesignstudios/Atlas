@@ -1,10 +1,10 @@
-# Atlas · Guía de seguridad (hardening)
+# Lusius · Guía de seguridad (hardening)
 
 Última revisión: 18 de octubre de 2026. Los límites de Cloudflare cambian con el tiempo: compruébalos en su panel.
 
 ## 0. Lo primero: qué se puede y qué no se puede proteger
 
-Atlas es una web estática. Eso es una ventaja enorme: no hay servidor propio, ni base de datos, ni
+Lusius es una web estática. Eso es una ventaja enorme: no hay servidor propio, ni base de datos, ni
 contraseñas que robar. Pero marca los límites:
 
 | Amenaza | ¿Qué la frena? | Dónde se configura |
@@ -38,19 +38,19 @@ Dos verdades incómodas:
 CSP en cabecera:
 
 ```
-Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
 ```
 
 Qué significa cada decisión:
 
 - `default-src 'none'`: lo que no se permita expresamente, se bloquea.
 - `script-src 'self'`: solo se ejecutan scripts de tu propia web. Sin `'unsafe-inline'` ni `'unsafe-eval'`: un XSS no podría ejecutar nada. Los bloques `application/ld+json` (SEO) no son código y no se ven afectados.
-- `style-src 'self'` y `font-src 'self'`: las fuentes Pirata One y Jost están alojadas en `assets/fonts/`; no se solicita Google Fonts. No hay estilos en línea en el HTML.
+- `style-src 'self' https://fonts.googleapis.com` y `font-src https://fonts.gstatic.com`: lo mínimo para Google Fonts. No hay estilos en línea en el HTML.
 - `img-src 'self' data:`: `data:` es necesario solo para el grano del lookbook (SVG en el CSS).
 - `connect-src 'self'`: el JavaScript solo puede hablar con tu web. **Si conectas un proveedor de newsletter, de formularios o de pago, hay que añadir su dominio aquí.**
 - `form-action 'self'`, `frame-ancestors 'none'`, `object-src 'none'`: ni formularios hacia fuera, ni iframes ajenos, ni plugins.
 
-Estado actual: las tipografías ya están alojadas localmente en `assets/fonts/`. La web no necesita Google Fonts para mostrarlas y evita esa conexión externa. Si en el futuro se añaden proveedores externos, hay que documentar el tratamiento de datos y ajustar la CSP de forma específica.
+Mejora recomendada: **alojar tú las tipografías** (Cinzel y Jost) en `assets/fonts/` y quitar Google Fonts de la CSP. Así desaparece el único recurso de terceros: la CSP queda en `'self'` para todo, no se envía la IP de los visitantes a Google (un asunto de RGPD) y la web carga más rápido. No pude descargarlas desde aquí porque este entorno no tiene acceso a internet.
 
 Otras cabeceras de `_headers`:
 
@@ -76,12 +76,12 @@ Otras cabeceras de `_headers`:
 **B) GitHub Pages con Cloudflare delante** (tu caso actual): en Cloudflare, **Rules → Transform Rules → Modify
 Response Header → Create rule**.
 
-1. Nombre: `Cabeceras de seguridad Atlas`.
-2. Condición: **All incoming requests** (o `Hostname equals www.atlasstudiobrand.com`).
+1. Nombre: `Cabeceras de seguridad Lusius`.
+2. Condición: **All incoming requests** (o `Hostname equals www.lusiusbrand.com`).
 3. En **Modify response headers**, añade con **Set static** cada pareja de la tabla anterior, y la CSP completa de arriba.
-4. Guarda y despliega. Comprueba con `curl -I https://www.atlasstudiobrand.com/` (ver 5).
+4. Guarda y despliega. Comprueba con `curl -I https://www.lusiusbrand.com/` (ver 5).
 
-> Con la URL `atlasdesignstudios.github.io/Atlas/`, las cabeceras **no** se aplican, porque ese dominio no pasa por Cloudflare. Solo se protege el dominio propio.
+> Con la URL de GitHub Pages del repositorio (`usuario.github.io/repositorio/`), las cabeceras **no** se aplican, porque ese dominio no pasa por Cloudflare. Solo se protege el dominio propio.
 
 ---
 
@@ -101,23 +101,23 @@ que quedaba con datos dinámicos era el del aviso de cookies (la URL de la polí
 - **Límites contra agotar el navegador**: máximo 20 líneas, 20.000 caracteres leídos de `localStorage` y precio máximo de 2.000 € por prenda. Se recorta *antes* de procesar, para que una cesta gigante no bloquee la pestaña.
 - **Texto limpio**: se eliminan caracteres de control de los nombres.
 - **Verificación de precios** (`verify()`): al abrir cualquier página y antes de pagar, cada línea se compara con `catalogo.html`. Si el precio no coincide se corrige; si la prenda no existe se elimina.
-- **Pago desactivado de forma deliberada**: el carrito ya no acepta una URL estática configurada en JavaScript. El botón seguirá bloqueado hasta que el backend valide el catálogo, stock y total y cree una sesión de pago.
+- **URL de pago validada**: solo `https`, y solo de tu dominio o de los que pongas en `CONFIG.checkoutHosts`. Una URL `javascript:` o de otro dominio no activa el botón.
 - Se usa `Object.create(null)` para los catálogos (un id llamado `__proto__` no puede alterar el objeto).
 
 `js/favorites.js`: mismos límites, y se recorta antes de procesar.
 
 `js/cookies.js`: sin cadenas de texto con datos dentro de `innerHTML`.
 
-La CI incorporada ejecuta comprobaciones de referencias locales, IDs duplicados, metadatos HTML, sitemap y sintaxis JavaScript. No sustituye pruebas funcionales en navegador ni pruebas de compra; estas deberán añadirse antes de activar pagos.
+Para probarlo, el carrito se ha verificado con 21 pruebas automáticas (ids con comillas, precios negativos, JSON gigante, `javascript:` en imagen y en URL de pago, etc.).
 
 ### 2.3 Manipulación de precios: la regla de oro
 
 `localStorage` lo puede editar cualquiera desde las herramientas del navegador. `verify()` evita que la *interfaz* muestre precios falsos,
 pero **no protege el cobro**. Cuando actives pagos:
 
-- Usa una integración de servidor como Stripe Checkout y crea sesiones desde el backend; no uses enlaces estáticos de pago para un carrito dinámico.
+- Usa una pasarela que fije el precio en su servidor (por ejemplo, enlaces de pago de Stripe con el precio ya definido para cada producto, o Shopify/Lemon Squeezy).
 - Envía al pago solo *id + talla + cantidad*, nunca el importe, y que sea la pasarela quien calcule el total.
-- No guardes claves ni precios de confianza en `cart.js`. Con Stripe Checkout alojado, el navegador debe llamar al endpoint propio del backend; el servidor crea la sesión y calcula importes desde su catálogo. Mantén el webhook firmado en el backend. Revisa CSP solo según el modo de integración elegido. Consulta `docs/PAGOS-STRIPE.md`.
+- Añade el dominio de pago a `CONFIG.checkoutHosts` en `cart.js` y a `connect-src`/`form-action` en la CSP si hace falta.
 
 ---
 
@@ -128,16 +128,16 @@ El plan gratuito incluye protección DDoS ilimitada y sin coste, 5 reglas WAF pe
 
 ### 3.1 Poner la web detrás de Cloudflare
 
-1. Crea cuenta en cloudflare.com → **Add a domain** → `atlasstudiobrand.com` → plan **Free**.
+1. Crea cuenta en cloudflare.com → **Add a domain** → `lusiusbrand.com` → plan **Free**.
 2. En tu registrador, cambia los *nameservers* a los que te indique Cloudflare. Espera a que el dominio figure como *Active*.
 3. En **DNS → Records**, para GitHub Pages:
    - 4 registros `A` en `@` apuntando a `185.199.108.153`, `185.199.109.153`, `185.199.110.153` y `185.199.111.153`.
-   - 1 registro `CNAME` en `www` apuntando a `atlasdesignstudios.github.io`.
+   - 1 registro `CNAME` en `www` apuntando a `usuario.github.io`.
    - **Déjalos en gris (DNS only) al principio.**
-4. En GitHub: **Settings → Pages → Custom domain** = `www.atlasstudiobrand.com`. Espera a que GitHub emita el certificado y marca **Enforce HTTPS**.
+4. En GitHub: **Settings → Pages → Custom domain** = `www.lusiusbrand.com`. Espera a que GitHub emita el certificado y marca **Enforce HTTPS**.
 5. Cuando funcione, **activa la nube naranja (Proxied)** en esos registros.
 6. **SSL/TLS → Overview**: modo **Full (strict)**. **SSL/TLS → Edge Certificates**: activa *Always Use HTTPS*, *Automatic HTTPS Rewrites* y *Minimum TLS Version 1.2*.
-7. **Rules → Redirect Rules**: redirige `atlasstudiobrand.com/*` a `https://www.atlasstudiobrand.com/${1}` (301), para tener una sola dirección.
+7. **Rules → Redirect Rules**: redirige `lusiusbrand.com/*` a `https://www.lusiusbrand.com/${1}` (301), para tener una sola dirección.
 
 ### 3.2 Protección DDoS
 
@@ -183,15 +183,15 @@ El `User-Agent` se puede falsificar, así que esto frena a los bots simples; Bot
 **Regla 5. Modo emergencia** (acción: *Managed Challenge*; **créala desactivada**). Actívala solo si sufres un ataque.
 
 ```
-(http.host eq "www.atlasstudiobrand.com") or (http.host eq "atlasstudiobrand.com")
+(http.host eq "www.lusiusbrand.com") or (http.host eq "lusiusbrand.com")
 ```
 
 ### 3.5 Límite de velocidad (1 regla gratuita)
 
 **Security → WAF → Rate limiting rules → Create rule**:
 
-- Nombre: `Límite general Atlas`.
-- Expresión: `(http.host eq "www.atlasstudiobrand.com")`
+- Nombre: `Límite general Lusius`.
+- Expresión: `(http.host eq "www.lusiusbrand.com")`
 - Característica de recuento: **IP**.
 - Peticiones: **150** cada **10 segundos** (una página carga unas 30 peticiones, así que un visitante real no se acerca).
 - Acción: **Block**, duración **10 segundos** (el máximo del plan gratuito).
@@ -209,7 +209,7 @@ menos graves, usa la regla 5 en lugar de este modo.
 
 ### 3.7 Un punto débil: el origen sigue accesible
 
-Con GitHub Pages, `atlasdesignstudios.github.io/Atlas/` sigue respondiendo directamente y **se salta Cloudflare**. Un atacante puede apuntar ahí.
+Con GitHub Pages, la URL `usuario.github.io/repositorio/` sigue respondiendo directamente y **se salta Cloudflare**. Un atacante puede apuntar ahí.
 La solución definitiva es alojar la web en **Cloudflare Pages**: todo el tráfico pasa por Cloudflare, `_headers` funciona sin Transform Rules y los
 despliegues se hacen desde el mismo repositorio de GitHub.
 
@@ -221,7 +221,7 @@ despliegues se hacen desde el mismo repositorio de GitHub.
 
 En el formulario de contacto, la lista VIP y los avisos de favoritos:
 
-- **Honeypot** invisible (`atlas_hp`): un bot que lo rellene recibe un «éxito» falso y no se envía nada.
+- **Honeypot** invisible (`lusius_hp`): un bot que lo rellene recibe un «éxito» falso y no se envía nada.
 - **Tiempo mínimo** de 3 s desde que se abre la página.
 - **Enfriamiento** de 30 s entre envíos del mismo formulario.
 - **Limpieza**: sin saltos de línea ni caracteres de control en asunto y nombre (evita inyectar cabeceras como `Bcc:`), y límites de longitud.
@@ -233,7 +233,7 @@ Esto frena bots simples. Un atacante que se salte el JavaScript y envíe directo
 
 Hoy los formularios abren el correo del visitante y no hay nada que verificar. El día que conectes un proveedor (`data-endpoint`):
 
-1. En Cloudflare: **Turnstile → Add widget** → dominio `www.atlasstudiobrand.com`, modo *Managed*. Copia la *Site key* (pública) y guarda la *Secret key* (secreta, solo en el servidor).
+1. En Cloudflare: **Turnstile → Add widget** → dominio `www.lusiusbrand.com`, modo *Managed*. Copia la *Site key* (pública) y guarda la *Secret key* (secreta, solo en el servidor).
 2. Añade este HTML dentro del `<form>`, antes del botón:
 
 ```html
@@ -263,7 +263,7 @@ export default {
   async fetch(request, env) {
     if (request.method !== "POST") return new Response("Método no permitido", { status: 405 });
     const form = await request.formData();
-    if (form.get("atlas_hp")) return new Response("ok");                       // honeypot
+    if (form.get("lusius_hp")) return new Response("ok");                       // honeypot
     const check = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
       body: new URLSearchParams({ secret: env.TURNSTILE_SECRET, response: form.get("cf-turnstile-response") || "" })
@@ -281,7 +281,7 @@ Es una plantilla: falta la llamada concreta a tu proveedor. Además, en el Worke
 
 - **Nunca** pongas en el código: claves secretas, tokens de API, contraseñas ni la *Secret key* de Turnstile. Todo lo que está en el repositorio o en el navegador es público. Las claves *públicas* (Site key de Turnstile, ID de analítica) sí pueden estar.
 - El correo de contacto sigue visible en el pie y en las páginas legales: es un requisito legal (LSSI, art. 10). Para que no lo recojan los bots, activa *Email Address Obfuscation* de Cloudflare (3.3).
-- Tu correo es `atlasdesigntudios@gmail.com`: comprueba que no es una errata de `atlasdesignstudios`.
+- Tu correo es `lusiusdesigntudios@gmail.com`: comprueba que no es una errata de `lusiusdesignstudios`.
 - Si usas un proveedor de newsletter, complétalo en `legal/privacidad.html` (hoy hay campos entre corchetes), con base legal (consentimiento), conservación y cómo darse de baja.
 - Activa en GitHub: **Settings → Code security** → *Secret scanning* y *Dependabot alerts*, y la verificación en dos pasos en tu cuenta de GitHub y en Cloudflare. Quien controle esas cuentas controla la web.
 
@@ -289,12 +289,12 @@ Es una plantilla: falta la llamada concreta a tu proveedor. Además, en el Worke
 
 ## 5. Cómo comprobar que todo funciona
 
-1. **Cabeceras:** `curl -I https://www.atlasstudiobrand.com/` debe mostrar `content-security-policy`, `strict-transport-security`, `x-frame-options`, etc.
+1. **Cabeceras:** `curl -I https://www.lusiusbrand.com/` debe mostrar `content-security-policy`, `strict-transport-security`, `x-frame-options`, etc.
 2. **Nota global:** securityheaders.com y developer.mozilla.org/es/observatory (objetivo: A o A+).
 3. **CSP:** abre la web con la consola del navegador. No deben aparecer errores en rojo «Refused to load…». Si aparece alguno, es que falta permitir un dominio.
-4. **Clickjacking:** crea un HTML local con `<iframe src="https://www.atlasstudiobrand.com/">`. Debe verse vacío.
-5. **Formularios:** rellena el campo invisible `atlas_hp` desde la consola y envía: no debe enviarse nada.
-6. **Cesta manipulada:** en la consola, `localStorage.setItem("atlas_cart", ...)` con un precio de 1 céntimo y recarga: debe corregirse al precio del catálogo (solo desde un servidor https, no desde el disco).
+4. **Clickjacking:** crea un HTML local con `<iframe src="https://www.lusiusbrand.com/">`. Debe verse vacío.
+5. **Formularios:** rellena el campo invisible `lusius_hp` desde la consola y envía: no debe enviarse nada.
+6. **Cesta manipulada:** en la consola, `localStorage.setItem("lusius_cart", ...)` con un precio de 1 céntimo y recarga: debe corregirse al precio del catálogo (solo desde un servidor https, no desde el disco).
 
 ## 6. Mantenimiento
 

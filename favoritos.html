@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Favoritos — LUSIUS</title>
-  <meta name="description" content="Tus prendas favoritas de LUSIUS, con aviso si baja el precio o quedan pocas unidades.">
+  <title>Favoritos — Lusius</title>
+  <meta name="description" content="Tus prendas favoritas de Lusius, con aviso si baja el precio o quedan pocas unidades.">
   <!-- Página personal: no se indexa -->
   <meta name="robots" content="noindex, follow">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#080808">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-  <link rel="preload" href="assets/fonts/pirata-one-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" referrerpolicy="no-referrer">
 
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/cart.css">
@@ -23,17 +24,18 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#contenido">Skip to content</a>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
   <!-- ============ HEADER (igual que en el resto de páginas) ============ -->
   <header class="site-header" id="inicio">
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
       <span class="menu-toggle__bars" aria-hidden="true"></span>
-      <span class="visually-hidden">Menu</span>
+      <span class="visually-hidden">Menú</span>
     </button>
 
-    <a class="logo" href="index.html" aria-label="LUSIUS, ir al inicio">
-      <img src="assets/img/logo-header.webp" alt="LUSIUS" width="242" height="324" fetchpriority="high" decoding="async">
+    <a class="logo" href="index.html" aria-label="Lusius, ir al inicio">
+      <img class="logo__mark" src="assets/img/lusius-emblem.png" alt="" width="460" height="700" aria-hidden="true">
+      <span class="logo__word" aria-hidden="true">LUSIUS</span>
     </a>
 
     <nav class="site-nav" id="menu" aria-label="Principal">
@@ -46,7 +48,7 @@
       </ul>
     </nav>
 
-    <button class="cart-button" type="button" data-cart-open aria-haspopup="dialog" aria-controls="cart" aria-label="Open the cart" hidden>
+    <button class="cart-button" type="button" data-cart-open aria-haspopup="dialog" aria-controls="cart" aria-label="Abrir la cesta" hidden>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
         <path d="M5.5 8h13l-1.2 12H6.7L5.5 8z"/>
         <path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>
@@ -60,7 +62,7 @@
 
       <header class="page__head">
         <h1 class="page__title">Favoritos</h1>
-        <p class="page__lead">Guarda tus prendas y vuelve cuando quieras.</p>
+        <p class="page__lead">Guarda lo que quieres. Te avisamos si cambia</p>
       </header>
 
       <section class="favs" aria-labelledby="favs-title">
@@ -82,11 +84,11 @@
            js/favorites-page.js lo muestra cuando hay prendas guardadas. Mientras data-endpoint esté vacío,
            abre el programa de correo del visitante. Cómo conectar un proveedor: cabecera de js/favorites-page.js. -->
       <section class="favs-mail" id="favs-mail" aria-labelledby="favs-mail-title" hidden>
-        <p class="kicker">Email alerts</p>
-        <h2 class="favs-mail__title" id="favs-mail-title">Don't miss a price drop</h2>
+        <p class="kicker">Avisos por correo</p>
+        <h2 class="favs-mail__title" id="favs-mail-title">No te pierdas una bajada de precio</h2>
         <p class="favs-mail__text">Déjanos tu correo y te escribimos si alguna de tus prendas baja de precio o se queda con pocas unidades.</p>
 
-        <form class="favs-mail__form" id="favs-mail-form" data-u="atlasdesigntudios" data-d="gmail.com" data-endpoint="" novalidate hidden>
+        <form class="favs-mail__form" id="favs-mail-form" data-u="lusiusdesigntudios" data-d="gmail.com" data-endpoint="" novalidate hidden>
           <div class="field">
             <label for="favs-email">Correo electrónico</label>
             <input type="email" id="favs-email" name="email" autocomplete="email" inputmode="email" required aria-required="true"
@@ -100,7 +102,7 @@
           </div>
           <p class="field__error" id="favs-consent-err" hidden></p>
 
-          <button type="submit" class="btn btn--block">Turn on alerts</button>
+          <button type="submit" class="btn btn--block">Activar avisos</button>
           <p class="form__status" id="favs-mail-status" role="status"></p>
         </form>
 
@@ -113,7 +115,11 @@
   <!-- ============ FOOTER LEGAL ============ -->
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <p class="site-footer__brand">LUSIUS</p>
+      <p class="site-footer__brand">
+        <img class="site-footer__mark" src="assets/img/lusius-emblem.png" alt="" width="460" height="700" aria-hidden="true">
+        <span>LUSIUS</span>
+      </p>
+      <p class="site-footer__tagline">We rule the city · Valencia</p>
 
       <nav aria-label="Información legal">
         <ul class="legal-links">
@@ -127,8 +133,8 @@
 
       <p class="site-footer__copy">
         © 2026 Dayae Hamioud · NIF X9517224P ·
-        <a href="mailto:atlasdesigntudios@gmail.com">atlasdesigntudios@gmail.com</a><br>
-        Todos los derechos reservados. LUSIUS es una marca de Dayae Hamioud.
+        <a href="mailto:lusiusdesigntudios@gmail.com">lusiusdesigntudios@gmail.com</a><br>
+        Todos los derechos reservados. Lusius es una casa independiente de Dayae Hamioud.
       </p>
     </div>
   </footer>

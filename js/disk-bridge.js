@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Puente para abrir la web desde el disco (file://)
+   LUSIUS — Puente para abrir la web desde el disco (file://)
    SOLO actúa cuando abres los .html directamente desde una carpeta.
    En una web publicada (https://…) no hace nada.
 
@@ -8,7 +8,7 @@
    al cambiar de página, y reaparecen al volver a la página donde se hicieron.
 
    Solución: al pasar de una página a otra, los enlaces llevan una copia de la
-   cesta y del consentimiento en la propia dirección (?atlas_state=…). La
+   cesta y del consentimiento en la propia dirección (?lusius_state=…). La
    página que se abre la recoge, la guarda y limpia la dirección.
 
    Debe cargarse ANTES que cart.js y cookies.js.
@@ -18,8 +18,8 @@
 
   if (window.location.protocol !== "file:") return;
 
-  var KEYS = ["atlas_cart", "atlas_cookie_consent", "atlas_favs"];
-  var PARAM = "atlas_state";
+  var KEYS = ["lusius_cart", "lusius_cookie_consent", "lusius_favs"];
+  var PARAM = "lusius_state";
 
   function enc(obj) {
     return btoa(unescape(encodeURIComponent(JSON.stringify(obj)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");

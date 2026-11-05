@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Favoritos (se carga después de cart.css)
+   LUSIUS — Favoritos (se carga después de cart.css)
    Índice: 1 Botón del header · 2 Corazón en las prendas · 3 Aviso flotante
            4 Página de favoritos · 5 Móvil
    ========================================================================== */
@@ -20,8 +20,8 @@
   transition: color 0.2s ease;
 }
 .fav-link:hover,
-.fav-link:focus-visible { color: var(--hover); }
-.fav-link svg { width: 26px; height: 26px; }
+.fav-link:focus-visible { color: var(--gold); }
+.fav-link svg { width: 24px; height: 24px; }
 
 .fav-count {
   position: absolute;
@@ -30,9 +30,9 @@
   min-width: 18px;
   height: 18px;
   padding: 0 5px;
-  background: var(--white);
+  background: var(--gold);
   color: var(--black);
-  font: 500 11px/18px var(--font-ui);
+  font: 500 10px/18px var(--font-ui);
   text-align: center;
 }
 .fav-count[hidden] { display: none; }
@@ -45,7 +45,7 @@
   width: 9px;
   height: 9px;
   background: var(--black);
-  border: 2px solid var(--white);
+  border: 2px solid var(--gold);
   border-radius: 50%;
 }
 
@@ -66,16 +66,16 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(8, 8, 8, 0.6);
   color: var(--white);
-  border: 1px solid #555;
+  border: 1px solid #4a433a;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
-.fav-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
-.fav-btn:hover { border-color: var(--white); }
-.fav-btn:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
-.fav-btn[aria-pressed="true"] { background: var(--white); color: var(--black); border-color: var(--white); }
+.fav-btn svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
+.fav-btn:hover { border-color: var(--gold); color: var(--gold); }
+.fav-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.fav-btn[aria-pressed="true"] { background: var(--gold); color: var(--black); border-color: var(--gold); }
 .fav-btn[aria-pressed="true"] svg { fill: currentColor; }
 
 
@@ -91,10 +91,11 @@
   gap: 8px 18px;
   max-width: min(460px, calc(100vw - 2 * var(--gutter)));
   padding: 14px 16px;
-  background: var(--black);
-  border: 1px solid var(--white);
+  background: var(--surface);
+  border: 1px solid var(--gold-dim);
   font-size: 14px;
-  line-height: 1.6;
+  font-weight: 300;
+  line-height: 1.65;
 }
 .fav-toast[hidden] { display: none; }
 .fav-toast p { flex: 1 1 220px; margin: 0; }
@@ -104,13 +105,13 @@
   padding: 0 14px;
   background: transparent;
   color: var(--white);
-  border: 1px solid #555;
-  font: 500 11px/1 var(--font-ui);
+  border: 1px solid #4a433a;
+  font: 500 10px/1 var(--font-ui);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   cursor: pointer;
 }
-.fav-toast__close:hover { border-color: var(--white); }
+.fav-toast__close:hover { border-color: var(--gold); color: var(--gold); }
 
 
 /* 4. PÁGINA DE FAVORITOS --------------------------------------------------- */
@@ -120,10 +121,11 @@
   gap: 20px;
   padding: clamp(36px, 6vw, 72px) var(--gutter);
   border: 1px solid var(--line);
+  background: var(--surface);
   text-align: center;
 }
 .favs__empty[hidden] { display: none; }
-.favs__empty p { max-width: 46ch; margin: 0; font-size: 16px; line-height: 1.8; color: #cfcfcf; }
+.favs__empty p { max-width: 46ch; margin: 0; font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--muted); }
 
 .favs__grid {
   display: grid;
@@ -133,47 +135,50 @@
   padding: 0;
   list-style: none;
 }
-.fav-card { display: grid; align-content: start; background: #050505; border: 1px solid var(--line); }
+.fav-card { display: grid; align-content: start; background: var(--surface); border: 1px solid var(--line); transition: border-color 0.2s ease; }
+.fav-card:hover { border-color: var(--gold-dim); }
 .fav-card__media {
   display: flex;
   align-items: center;
   justify-content: center;
   aspect-ratio: 1;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 58%, rgba(170,170,170,.30) 0%, rgba(170,170,170,0) 100%),
-    linear-gradient(180deg, #0c0c0c 0%, #000000 100%);
+    radial-gradient(ellipse 70% 55% at 50% 58%, rgba(201,169,106,.13) 0%, rgba(201,169,106,0) 100%),
+    linear-gradient(180deg, #121010 0%, #080808 100%);
 }
 .fav-card__media img { width: 80%; height: 80%; object-fit: contain; filter: drop-shadow(0 14px 18px rgba(0,0,0,.55)); }
 .fav-card__body { display: grid; gap: 10px; padding: 18px 18px 20px; }
-.fav-card__name { margin: 0; font-size: 18px; font-weight: 500; letter-spacing: 0.04em; }
+.fav-card__name { margin: 0; font-family: var(--font-display); font-size: 17px; font-weight: 500; line-height: 1.25; letter-spacing: 0.05em; }
 .fav-card__name a:hover,
-.fav-card__name a:focus-visible { color: var(--hover); }
-.fav-card__price { margin: 0; font-size: 20px; font-weight: 500; }
-.fav-card__was { margin-left: 8px; font-size: 14px; font-weight: 400; color: #9a9a9a; text-decoration: line-through; }
+.fav-card__name a:focus-visible { color: var(--gold); }
+.fav-card__price { margin: 0; font-size: 19px; font-weight: 400; letter-spacing: 0.04em; }
+.fav-card__was { margin-left: 8px; font-size: 13px; font-weight: 300; color: var(--muted); text-decoration: line-through; }
 
 .fav-card__alert {
   display: grid;
   gap: 8px;
   margin: 0;
   padding: 10px 12px;
-  border: 1px solid var(--white);
+  border: 1px solid var(--gold-dim);
+  background: rgba(201, 169, 106, 0.06);
   font-size: 13px;
-  line-height: 1.5;
+  font-weight: 300;
+  line-height: 1.55;
 }
-.fav-card__alert strong { font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; font-size: 11px; }
+.fav-card__alert strong { font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; font-size: 10px; color: var(--gold); }
 .fav-card__ok {
   min-height: 36px;
   justify-self: start;
   padding: 0 12px;
   background: transparent;
   color: var(--white);
-  border: 1px solid #555;
-  font: 500 11px/1 var(--font-ui);
+  border: 1px solid #4a433a;
+  font: 500 10px/1 var(--font-ui);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   cursor: pointer;
 }
-.fav-card__ok:hover { border-color: var(--white); }
+.fav-card__ok:hover { border-color: var(--gold); color: var(--gold); }
 
 .fav-card__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; margin-top: 4px; }
 .fav-card__actions .btn { padding: 14px 22px; font-size: 11px; letter-spacing: 0.22em; }
@@ -181,9 +186,9 @@
   min-height: 44px;
   padding: 0;
   background: none;
-  color: #bdbdbd;
+  color: var(--muted);
   border: 0;
-  font: 400 12px/1 var(--font-ui);
+  font: 400 11px/1 var(--font-ui);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   text-decoration: underline;
@@ -191,7 +196,7 @@
   cursor: pointer;
 }
 .fav-card__remove:hover,
-.fav-card__remove:focus-visible { color: var(--white); }
+.fav-card__remove:focus-visible { color: var(--gold); }
 
 /* Avisos por correo */
 .favs-mail {
@@ -200,21 +205,24 @@
   gap: 16px;
   margin-top: clamp(40px, 6vw, 72px);
   padding: clamp(28px, 5vw, 56px) var(--gutter);
-  border: 1px solid var(--white);
+  border: 1px solid var(--gold-dim);
+  background:
+    radial-gradient(ellipse 60% 120% at 50% 0%, rgba(201,169,106,.07), transparent 70%),
+    var(--surface);
   text-align: center;
 }
 .favs-mail[hidden] { display: none; }
-.favs-mail .kicker { margin: 0; color: #bdbdbd; }
-.favs-mail__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 4vw, 48px); line-height: 1.1; text-wrap: balance; }
-.favs-mail__text { max-width: 54ch; margin: 0; font-size: 15px; line-height: 1.8; color: #cfcfcf; }
+.favs-mail .kicker { margin: 0; color: var(--gold); }
+.favs-mail__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(26px, 3.8vw, 44px); line-height: 1.18; letter-spacing: 0.03em; text-wrap: balance; }
+.favs-mail__text { max-width: 54ch; margin: 0; font-size: 15px; font-weight: 300; line-height: 1.85; color: var(--muted); }
 .favs-mail__form { display: grid; gap: 20px; width: 100%; max-width: 520px; margin-top: 8px; text-align: left; }
 .favs-mail__consent { display: flex; align-items: flex-start; gap: 12px; }
-.favs-mail__consent input { flex: none; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--white); }
-.favs-mail__consent input:focus-visible,
-.favs-mail__consent input[aria-invalid="true"] { outline: 2px solid var(--white); outline-offset: 3px; }
-.favs-mail__consent label { font-size: 13px; line-height: 1.7; color: #b5b5b5; cursor: pointer; }
+.favs-mail__consent input { flex: none; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--gold); }
+.favs-mail__consent input:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.favs-mail__consent input[aria-invalid="true"] { outline: 2px solid #e2a08a; outline-offset: 3px; }
+.favs-mail__consent label { font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--muted); cursor: pointer; }
 .favs-mail__consent a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
-.favs-mail__note { margin: 0; font-size: 13px; line-height: 1.7; color: #9a9a9a; }
+.favs-mail__note { margin: 0; font-size: 12px; font-weight: 300; line-height: 1.75; color: var(--muted); }
 
 
 /* 5. MÓVIL ----------------------------------------------------------------- */

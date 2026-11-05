@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Catálogo
+   LUSIUS — Catálogo
    Cambia entre la vista delantera y trasera de cada prenda (flechas junto a la prenda).
    Sin JavaScript se muestra siempre la vista delantera (y el selector queda oculto).
    ========================================================================== */

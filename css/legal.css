@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Páginas legales (se carga después de styles.css)
+   LUSIUS — Páginas legales (se carga después de styles.css)
    ========================================================================== */
 
 .legal-header {
@@ -20,7 +20,7 @@
   transition: color 0.2s ease;
 }
 .legal-header__back:hover,
-.legal-header__back:focus-visible { color: var(--hover); }
+.legal-header__back:focus-visible { color: var(--gold); }
 
 /* Documento */
 .legal-doc {
@@ -32,39 +32,44 @@
 .legal-doc h1 {
   margin: 0 0 12px;
   font-family: var(--font-display);
-  font-weight: 400;      /* Pirata One solo existe en un peso */
-  font-size: clamp(40px, 6vw, 72px);
-  line-height: 1.05;
+  font-weight: 500;
+  font-size: clamp(38px, 5.5vw, 66px);
+  line-height: 1.08;
+  letter-spacing: 0.03em;
 }
 
 .legal-doc .updated {
   margin: 0 0 40px;
-  font-size: 14px;
-  color: #9a9a9a;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
 }
 
 .legal-doc h2 {
   margin: 48px 0 14px;
   padding-top: 24px;
   border-top: 1px solid var(--line);
-  font-size: 20px;
+  font-family: var(--font-display);
+  font-size: 19px;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
 }
 
 .legal-doc h3 {
   margin: 28px 0 8px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--gold);
 }
 
 .legal-doc p,
 .legal-doc li {
-  font-size: 16px;
-  line-height: 1.75;
-  color: #e6e6e6;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #d6cfc3;
 }
 .legal-doc p { margin: 0 0 14px; }
 
@@ -75,17 +80,19 @@
 .legal-doc li { margin-bottom: 6px; }
 
 .legal-doc a { text-decoration: underline; text-underline-offset: 3px; }
-.legal-doc a:hover { color: var(--hover); }
+.legal-doc a:hover { color: var(--gold); }
 
-.legal-doc strong { font-weight: 500; color: var(--white); }
+.legal-doc strong { font-weight: 400; color: var(--white); }
 
 /* Aviso de borrador (eliminar al publicar) */
 .legal-draft {
   margin: 0 0 40px;
   padding: 16px 20px;
-  border: 1px solid var(--white);
+  border: 1px solid var(--gold-dim);
+  background: rgba(201, 169, 106, 0.05);
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.65;
+  color: #d6cfc3;
 }
 .legal-draft p { margin: 0; font-size: 14px; }
 
@@ -100,18 +107,19 @@
 .legal-doc th,
 .legal-doc td {
   padding: 10px 12px;
-  border: 1px solid #333;
+  border: 1px solid #3a342c;
   text-align: left;
   vertical-align: top;
-  line-height: 1.55;
+  line-height: 1.6;
 }
-.legal-doc th { font-weight: 500; background: #111; }
+.legal-doc th { font-weight: 500; background: #15120f; color: var(--white); }
 
 /* Formulario modelo de desistimiento */
 .legal-doc blockquote {
   margin: 0 0 20px;
   padding: 16px 20px;
-  border: 1px dashed #666;
+  border: 1px dashed var(--gold-dim);
+  background: rgba(201, 169, 106, 0.04);
 }
 .legal-doc blockquote p { margin: 0 0 10px; }
 .legal-doc blockquote p:last-child { margin: 0; }

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Catálogo (se carga después de styles.css)
+   LUSIUS — Catálogo (se carga después de styles.css)
    ========================================================================== */
 
 .catalog {
@@ -16,16 +16,18 @@
 .catalog__title {
   margin: 0 0 16px;
   font-family: var(--font-display);
-  font-weight: 400;      /* Pirata One solo existe en un peso */
+  font-weight: 500;
   font-size: clamp(44px, 8vw, 112px);
   line-height: 1;
+  letter-spacing: 0.04em;
 }
 .catalog__lead {
   margin: 0;
   font-size: 12px;
+  font-weight: 400;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #bdbdbd;
+  color: var(--gold);
 }
 
 /* Rejilla de productos: 2 columnas en escritorio, 1 en móvil */
@@ -45,17 +47,23 @@
 
 /* Tarjeta de producto */
 .card {
-  background: #050505;
+  background: var(--surface);
   border: 1px solid var(--line);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.card:hover,
+.card:focus-within {
+  border-color: var(--gold-dim);
+  transform: translateY(-3px);
 }
 
-/* Zona de imagen: fondo con resplandor gris para que la ropa negra no se pierda */
+/* Zona de imagen: resplandor cálido muy tenue para que la ropa negra no se pierda */
 .card__media {
   position: relative;
   aspect-ratio: 10 / 11;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 58%, rgba(170,170,170,.38) 0%, rgba(170,170,170,0) 100%),
-    linear-gradient(180deg, #0c0c0c 0%, #000000 100%);
+    radial-gradient(ellipse 70% 55% at 50% 58%, rgba(201,169,106,.14) 0%, rgba(201,169,106,0) 100%),
+    linear-gradient(180deg, #121010 0%, #080808 100%);
 }
 .card__img {
   position: absolute;
@@ -74,8 +82,10 @@
   left: 16px;
   padding: 6px 10px;
   background: var(--black);
-  border: 1px solid var(--white);
-  font-size: 11px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
@@ -84,20 +94,27 @@
 .card__body { display: grid; gap: 8px; padding: 20px 22px 24px; }
 .card__cat {
   margin: 0;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: var(--gold);
 }
-.card__name { margin: 0; font-size: 22px; font-weight: 500; letter-spacing: 0.04em; }
-.card__desc { margin: 0; font-size: 14px; line-height: 1.6; color: #cfcfcf; }
-.card__price { margin: 8px 0 0; font-size: 24px; font-weight: 500; letter-spacing: 0.02em; }
+.card__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+}
+.card__desc { margin: 0; font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--muted); }
+.card__price { margin: 8px 0 0; font-size: 22px; font-weight: 400; letter-spacing: 0.04em; }
 .card__sizes {
   margin: 0;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: var(--muted);
 }
 
 /* Selector Delante / Detrás (lo muestra js/catalog.js) */
@@ -108,18 +125,18 @@
   padding: 0 18px;
   background: transparent;
   color: var(--white);
-  border: 1px solid #555;
-  font: 500 11px/1 var(--font-ui);
+  border: 1px solid #4a433a;
+  font: 500 10px/1 var(--font-ui);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
-.view-toggle button:hover { border-color: var(--white); }
+.view-toggle button:hover { border-color: var(--gold); color: var(--gold); }
 .view-toggle button[aria-pressed="true"] {
-  background: var(--white);
+  background: var(--gold);
   color: var(--black);
-  border-color: var(--white);
+  border-color: var(--gold);
 }
 
 /* Pulsar sobre la prenda abre su ficha (el enlace del nombre sigue siendo el accesible por teclado) */
@@ -137,17 +154,17 @@
   height: 44px;
   padding: 0;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(8, 8, 8, 0.65);
   color: var(--white);
-  border: 1px solid #555;
+  border: 1px solid #4a433a;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
 .view-arrows__btn svg { width: 22px; height: 22px; }
 .view-arrows__btn--prev { left: 10px; }
 .view-arrows__btn--next { right: 10px; }
-.view-arrows__btn:hover:not(:disabled) { background: var(--white); color: var(--black); border-color: var(--white); }
-.view-arrows__btn:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+.view-arrows__btn:hover:not(:disabled) { background: var(--gold); color: var(--black); border-color: var(--gold); }
+.view-arrows__btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .view-arrows__btn:disabled { opacity: 0.25; cursor: default; }
 
 /* Nota bajo la rejilla */
@@ -155,12 +172,13 @@
   max-width: 70ch;
   margin: 40px auto 0;
   font-size: 13px;
-  line-height: 1.7;
+  font-weight: 300;
+  line-height: 1.75;
   text-align: center;
-  color: #9a9a9a;
+  color: var(--muted);
 }
-.catalog__note a { text-decoration: underline; text-underline-offset: 3px; }
-.catalog__note a:hover { color: var(--hover); }
+.catalog__note a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+.catalog__note a:hover { color: var(--gold); }
 
 @media (max-width: 760px) {
   .grid { grid-template-columns: 1fr; }
@@ -168,5 +186,5 @@
 }
 
 /* Introducción del catálogo (texto visible con las palabras clave de la marca) */
-.catalog__intro { max-width: 62ch; margin: 20px auto 0; font-size: 15px; line-height: 1.8; color: #b5b5b5; }
-.catalog__intro strong { font-weight: 500; color: var(--white); }
+.catalog__intro { max-width: 62ch; margin: 20px auto 0; font-size: 15px; font-weight: 300; line-height: 1.85; color: var(--muted); }
+.catalog__intro strong { font-weight: 400; color: var(--white); }

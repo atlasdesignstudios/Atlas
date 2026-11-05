@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Nosotros y Contacto (se carga después de styles.css y cart.css)
+   LUSIUS — Nosotros y Contacto (se carga después de styles.css y cart.css)
    Índice: 1 Base de página · 2 Nosotros (manifiesto, armadura, primer drop, lista VIP) · 3 Contacto y formulario · 4 Móvil
    ========================================================================== */
 
@@ -16,23 +16,25 @@
 .page__title {
   margin: 0 0 16px;
   font-family: var(--font-display);
-  font-weight: 400;      /* Pirata One solo existe en un peso */
+  font-weight: 500;
   font-size: clamp(44px, 8vw, 112px);
   line-height: 1;
+  letter-spacing: 0.04em;
 }
 .page__lead {
   margin: 0;
   font-size: 12px;
+  font-weight: 400;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #bdbdbd;
+  color: var(--gold);
 }
 .kicker {
   margin: 0 0 18px;
-  font: 500 12px/1.4 var(--font-ui);
-  letter-spacing: 0.28em;
+  font: 500 11px/1.4 var(--font-ui);
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: var(--gold);
 }
 .link-line {
   display: inline-block;
@@ -45,7 +47,7 @@
   transition: color 0.2s ease;
 }
 .link-line:hover,
-.link-line:focus-visible { color: var(--hover); }
+.link-line:focus-visible { color: var(--gold); }
 
 
 /* 2. NOSOTROS -------------------------------------------------------------- */
@@ -62,15 +64,18 @@
   width: 100%;
   max-width: 380px;
   margin: 0;
-  border: 1px solid var(--line);
-  background: var(--black);
+  border: 1px solid var(--gold-dim);
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 45%, rgba(201,169,106,.10), transparent 70%),
+    var(--surface);
 }
-.story__media img { width: 100%; height: auto; }
+.story__media img { width: 100%; height: auto; filter: brightness(1.05); }
 .story__text p {
   margin: 0 0 18px;
   font-size: clamp(16px, 1.5vw, 18px);
-  line-height: 1.8;
-  color: #e6e6e6;
+  font-weight: 300;
+  line-height: 1.85;
+  color: #d6cfc3;
 }
 .story__text p:last-child { margin-bottom: 0; }
 
@@ -78,15 +83,16 @@
 .section-title {
   margin: 0 0 clamp(20px, 3vw, 36px);
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(32px, 4.4vw, 56px);
-  line-height: 1.1;
+  font-weight: 500;
+  font-size: clamp(28px, 3.8vw, 48px);
+  line-height: 1.16;
+  letter-spacing: 0.03em;
   text-wrap: balance;
 }
 .story__text .kicker { margin-bottom: 12px; }
-.story__text strong { font-weight: 500; color: var(--white); }
+.story__text strong { font-weight: 400; color: var(--gold); }
 
-/* Por qué Atlas */
+/* Por qué Lusius */
 .features,
 .range,
 .faq {
@@ -106,10 +112,12 @@
 .feature {
   padding: 24px 20px 28px;
   border: 1px solid var(--line);
-  background: #050505;
+  background: var(--surface);
+  transition: border-color 0.2s ease;
 }
-.feature__title { margin: 0 0 10px; font: 500 13px/1.4 var(--font-ui); letter-spacing: 0.2em; text-transform: uppercase; }
-.feature p { margin: 0; font-size: 14px; line-height: 1.7; color: #b5b5b5; }
+.feature:hover { border-color: var(--gold-dim); }
+.feature__title { margin: 0 0 10px; font: 500 11px/1.4 var(--font-ui); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+.feature p { margin: 0; font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--muted); }
 
 /* Primer drop */
 .range__list {
@@ -126,14 +134,15 @@
   justify-items: center;
   padding: 14px 10px 18px;
   border: 1px solid var(--line);
+  background: var(--surface);
   transition: border-color 0.2s ease;
 }
 .range__card:hover,
-.range__card:focus-visible { border-color: var(--white); }
+.range__card:focus-visible { border-color: var(--gold-dim); }
 .range__media { display: flex; align-items: flex-end; justify-content: center; width: 100%; height: clamp(110px, 14vw, 190px); }
 .range__media img { width: auto; max-width: 100%; max-height: 100%; }
-.range__name { font-size: 12px; line-height: 1.4; letter-spacing: 0.12em; text-transform: uppercase; }
-.range__price { font-size: 14px; color: #bdbdbd; }
+.range__name { font-size: 11px; line-height: 1.4; letter-spacing: 0.14em; text-transform: uppercase; }
+.range__price { font-size: 14px; color: var(--muted); }
 
 /* Banda promocional */
 .promo {
@@ -142,11 +151,14 @@
   gap: 20px;
   margin: clamp(48px, 7vw, 96px) 0;
   padding: clamp(36px, 6vw, 72px) var(--gutter);
-  border: 1px solid var(--white);
+  border: 1px solid var(--gold-dim);
+  background:
+    radial-gradient(ellipse 60% 120% at 50% 0%, rgba(201,169,106,.07), transparent 70%),
+    var(--surface);
   text-align: center;
 }
-.promo__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 5vw, 64px); line-height: 1.1; text-wrap: balance; }
-.promo__text { max-width: 56ch; margin: 0; font-size: 16px; line-height: 1.8; color: #cfcfcf; }
+.promo__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(30px, 4.4vw, 58px); line-height: 1.16; letter-spacing: 0.03em; text-wrap: balance; }
+.promo__text { max-width: 56ch; margin: 0; font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--muted); }
 .promo__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 32px; }
 
 /* Preguntas frecuentes */
@@ -165,10 +177,10 @@
   list-style: none;
 }
 .faq__item summary::-webkit-details-marker { display: none; }
-.faq__item summary::after { content: "+"; font-size: 22px; line-height: 1; color: #9a9a9a; }
+.faq__item summary::after { content: "+"; font-size: 22px; line-height: 1; color: var(--gold); }
 .faq__item[open] summary::after { content: "–"; }
-.faq__item summary:hover { color: var(--hover); }
-.faq__item p { margin: 0 0 18px; font-size: 15px; line-height: 1.8; color: #b5b5b5; }
+.faq__item summary:hover { color: var(--gold); }
+.faq__item p { margin: 0 0 18px; font-size: 15px; font-weight: 300; line-height: 1.85; color: var(--muted); }
 .faq__item a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
 
 
@@ -181,13 +193,15 @@
 .creed__quote {
   margin: 8px 0 30px;
   padding: 6px 0 6px clamp(16px, 2.4vw, 28px);
-  border-left: 2px solid var(--white);
+  border-left: 2px solid var(--gold);
 }
 .creed__quote p {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(28px, 3.6vw, 46px);
-  line-height: 1.15;
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 40px);
+  line-height: 1.22;
+  letter-spacing: 0.02em;
   color: var(--white);
 }
 
@@ -212,11 +226,13 @@
   gap: 10px;
   padding: 24px 20px 28px;
   border: 1px solid var(--line);
-  background: #050505;
+  background: var(--surface);
+  transition: border-color 0.2s ease;
 }
-.armor__num { font-family: var(--font-display); font-size: 40px; line-height: 1; color: #6f6f6f; }
-.armor__title { margin: 0; font: 500 13px/1.4 var(--font-ui); letter-spacing: 0.2em; text-transform: uppercase; }
-.armor__item p { margin: 0; font-size: 14px; line-height: 1.7; color: #b5b5b5; }
+.armor__item:hover { border-color: var(--gold-dim); }
+.armor__num { font-family: var(--font-display); font-size: 34px; line-height: 1; letter-spacing: 0.06em; color: var(--gold-dim); }
+.armor__title { margin: 0; font: 500 11px/1.4 var(--font-ui); letter-spacing: 0.22em; text-transform: uppercase; }
+.armor__item p { margin: 0; font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--muted); }
 .armor__price {
   display: flex;
   flex-wrap: wrap;
@@ -229,8 +245,8 @@
 }
 .armor__price a { padding: 10px 0; text-decoration: underline; text-underline-offset: 6px; }
 .armor__price a:hover,
-.armor__price a:focus-visible { color: var(--hover); }
-.armor__note { margin: 6px 0 0; font-size: 15px; line-height: 1.7; color: #b5b5b5; }
+.armor__price a:focus-visible { color: var(--gold); }
+.armor__note { margin: 6px 0 0; font-size: 15px; font-weight: 300; line-height: 1.75; color: var(--muted); }
 
 /* Lista VIP / drop privado */
 .vip {
@@ -239,24 +255,27 @@
   gap: 20px;
   margin: clamp(48px, 7vw, 96px) 0;
   padding: clamp(36px, 6vw, 72px) var(--gutter);
-  border: 1px solid var(--white);
+  border: 1px solid var(--gold-dim);
+  background:
+    radial-gradient(ellipse 60% 120% at 50% 0%, rgba(201,169,106,.07), transparent 70%),
+    var(--surface);
   text-align: center;
 }
-.vip .kicker { margin: 0; color: #bdbdbd; }
-.vip__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 5vw, 64px); line-height: 1.1; text-wrap: balance; }
-.vip__text { max-width: 52ch; margin: 0; font-size: 16px; line-height: 1.8; color: #cfcfcf; }
-.vip__perks { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; }
-.vip__perks li::before { content: "— "; color: #9a9a9a; }
+.vip .kicker { margin: 0; color: var(--gold); }
+.vip__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(30px, 4.4vw, 58px); line-height: 1.16; letter-spacing: 0.03em; text-wrap: balance; }
+.vip__text { max-width: 52ch; margin: 0; font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--muted); }
+.vip__perks { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; }
+.vip__perks li::before { content: "— "; color: var(--gold); }
 .vip__form { display: grid; gap: 20px; width: 100%; max-width: 520px; margin-top: 8px; text-align: left; }
 .vip__form[hidden] { display: none; }
 .vip__consent { display: flex; align-items: flex-start; gap: 12px; }
-.vip__consent input { flex: none; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--white); }
-.vip__consent input:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
-.vip__consent input[aria-invalid="true"] { outline: 2px solid var(--white); outline-offset: 3px; }
-.vip__consent label { font-size: 13px; line-height: 1.7; color: #b5b5b5; cursor: pointer; }
+.vip__consent input { flex: none; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--gold); }
+.vip__consent input:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.vip__consent input[aria-invalid="true"] { outline: 2px solid #e2a08a; outline-offset: 3px; }
+.vip__consent label { font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--muted); cursor: pointer; }
 .vip__consent a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
 .vip__consent a:hover,
-.vip__consent a:focus-visible { color: var(--hover); }
+.vip__consent a:focus-visible { color: var(--gold); }
 
 
 /* 3. CONTACTO Y FORMULARIO ------------------------------------------------- */
@@ -268,10 +287,10 @@
 }
 .contact__list { display: grid; gap: 22px; margin: 0 0 44px; padding: 0; }
 .contact__list > div { display: grid; gap: 6px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
-.contact__list dt { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #9a9a9a; }
-.contact__list dd { margin: 0; font-size: clamp(18px, 2vw, 22px); }
+.contact__list dt { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+.contact__list dd { margin: 0; font-size: clamp(18px, 2vw, 22px); font-weight: 300; }
 .contact__list a { text-decoration: underline; text-underline-offset: 5px; word-break: break-word; }
-.contact__list a:hover { color: var(--hover); }
+.contact__list a:hover { color: var(--gold); }
 
 .contact__links { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
 .contact__links a {
@@ -281,19 +300,19 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-.contact__links a:hover { color: var(--hover); }
+.contact__links a:hover { color: var(--gold); }
 
 .form {
   display: grid;
   gap: 22px;
   padding: clamp(22px, 3vw, 36px);
-  border: 1px solid var(--white);
-  background: #050505;
+  border: 1px solid var(--gold-dim);
+  background: var(--surface);
 }
 .form[hidden] { display: none; }
 
 .field { display: grid; gap: 8px; }
-.field label { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; }
+.field label { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #cfc7b9; }
 .field input,
 .field select,
 .field textarea {
@@ -302,43 +321,44 @@
   padding: 12px 14px;
   background: var(--black);
   color: var(--white);
-  border: 1px solid #555;
+  border: 1px solid #4a433a;
   border-radius: 0;
-  font: 400 16px/1.5 var(--font-ui);     /* 16 px evita el zoom automático en iOS */
+  font: 300 16px/1.5 var(--font-ui);     /* 16 px evita el zoom automático en iOS */
   color-scheme: dark;
 }
 .field textarea { min-height: 170px; resize: vertical; }
 .field input:hover,
 .field select:hover,
-.field textarea:hover { border-color: #999; }
+.field textarea:hover { border-color: #8d7444; }
 .field input:focus-visible,
 .field select:focus-visible,
-.field textarea:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; border-color: var(--white); }
-.field [aria-invalid="true"] { border-width: 2px; border-color: var(--white); }
+.field textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-color: var(--gold); }
+.field [aria-invalid="true"] { border-width: 2px; border-color: #e2a08a; }
 
 .field__error {
   margin: 0;
   padding: 8px 12px;
-  border: 1px solid var(--white);
+  border: 1px solid #e2a08a;
+  color: #e2a08a;
   font-size: 13px;
   line-height: 1.5;
 }
 .field__error[hidden] { display: none; }
-.field__hint { margin: 0; font-size: 12px; color: #9a9a9a; text-align: right; }
+.field__hint { margin: 0; font-size: 12px; color: var(--muted); text-align: right; }
 
 .form__status {
   margin: 0;
   padding: 12px 14px;
-  border: 1px dashed #777;
+  border: 1px dashed var(--gold-dim);
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 .form__status:empty { display: none; }
 .form__status a { text-decoration: underline; text-underline-offset: 3px; }
 
-.form__note { margin: 0; font-size: 13px; line-height: 1.7; color: #9a9a9a; }
+.form__note { margin: 0; font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--muted); }
 .form__note a { text-decoration: underline; text-underline-offset: 3px; }
-.form__note a:hover { color: var(--hover); }
+.form__note a:hover { color: var(--gold); }
 
 
 /* 4. MÓVIL ----------------------------------------------------------------- */

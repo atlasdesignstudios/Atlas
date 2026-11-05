@@ -1,11 +1,11 @@
 /* ==========================================================================
-   ATLAS — Carrito
+   LUSIUS — Carrito
    · Botón «Añadir a la cesta» en cada prenda del catálogo (hace falta elegir talla).
    · Panel lateral con cantidades, quitar prendas y subtotal (IVA incluido).
    · La cesta se guarda en el navegador (localStorage) durante 30 días.
      Es almacenamiento técnico: no necesita consentimiento (ver Política de cookies).
-   · El botón de pago permanece desactivado hasta que exista un backend que
-     valide el carrito y cree una sesión de pago segura.
+   · El botón de pago está desactivado hasta que indiques una URL de pago
+     (pasarela o tienda) en CONFIG.checkoutUrl.
 
    Cómo se enlaza con el HTML:
      <button data-cart-open>            abre el panel (en el header)
@@ -16,9 +16,14 @@
 (function () {
   "use strict";
 
-  /* ---------- CONFIGURACIÓN local ---------- */
+  /* ---------- CONFIGURACIÓN (lo único que tendrás que tocar) ---------- */
   var CONFIG = {
-    storageKey: "atlas_cart",
+    // URL de pago, p. ej. "https://tu-tienda.com/checkout". Vacío = pago desactivado.
+    checkoutUrl: "",
+    // Dominios externos a los que se permite enviar al cliente a pagar (además de esta misma web).
+    // P. ej. ["buy.stripe.com", "checkout.shopify.com"]. Solo se admiten direcciones https.
+    checkoutHosts: [],
+    storageKey: "lusius_cart",
     maxAgeDays: 30,        // la cesta caduca si no se toca en este tiempo
     maxPerLine: 10         // unidades máximas de una misma prenda y talla
   };
@@ -37,9 +42,17 @@
   var money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
   function fmt(cents) { return money.format(cents / 100); }
 
-  // Bloqueo deliberado: no se permiten enlaces de pago estáticos desde el navegador.
-  // Se habilitará cuando el backend cree sesiones y valide precios/stock en servidor.
-  var CHECKOUT = false;
+  // Solo se acepta una URL de pago https de esta web o de un dominio de CONFIG.checkoutHosts
+  function safeCheckoutUrl() {
+    if (!CONFIG.checkoutUrl) return "";
+    try {
+      var u = new URL(CONFIG.checkoutUrl, window.location.href);
+      if (u.protocol !== "https:") return "";
+      if (u.hostname !== window.location.hostname && CONFIG.checkoutHosts.indexOf(u.hostname) < 0) return "";
+      return u.href;
+    } catch (e) { return ""; }
+  }
+  var CHECKOUT = safeCheckoutUrl();
 
 
   /* ---------- Estado y almacenamiento ---------- */
@@ -72,7 +85,7 @@
      que sobrevive a la navegación dentro de la misma pestaña.
      En un servidor real (https) no se usa. */
   var FROM_DISK = window.location.protocol === "file:";
-  var NAME_PREFIX = "atlas_cart=";
+  var NAME_PREFIX = "lusius_cart=";
 
   // Devuelve los datos guardados si son válidos y no han caducado
   function parse(raw) {
@@ -235,8 +248,8 @@
     checkoutBtn = el("button", "btn btn--block", "Finalizar compra");
     checkoutBtn.type = "button";
     checkoutBtn.setAttribute("data-cart-checkout", "");
-    soonEl = el("p", "cart__note cart__soon", "La compra estará disponible cuando abramos la tienda.");
-    var notify = el("a", "", "Avísame cuando abramos");
+    soonEl = el("p", "cart__note cart__soon", "El pago se activará cuando abramos la tienda. ");
+    var notify = el("a", "", "Avísame cuando abra");
     notify.href = ROOT + "nosotros.html#lista-vip";
     soonEl.appendChild(notify);
     footEl.appendChild(row);
@@ -273,12 +286,12 @@
     qty.setAttribute("aria-label", "Cantidad de " + it.name + ", talla " + it.size);
     var dec = el("button", "qty-btn", "−");
     dec.type = "button"; dec.setAttribute("data-action", "dec");
-    dec.setAttribute("aria-label", "Reducir cantidad");
+    dec.setAttribute("aria-label", "Una unidad menos");
     dec.disabled = it.qty <= 1;
     var num = el("span", "qty-num", String(it.qty));
     var inc = el("button", "qty-btn", "+");
     inc.type = "button"; inc.setAttribute("data-action", "inc");
-    inc.setAttribute("aria-label", "Aumentar cantidad");
+    inc.setAttribute("aria-label", "Una unidad más");
     inc.disabled = it.qty >= CONFIG.maxPerLine;
     qty.appendChild(dec); qty.appendChild(num); qty.appendChild(inc);
     info.appendChild(qty);
@@ -286,9 +299,9 @@
     var side = el("div", "cart-item__side");
     var price = el("p", "cart-item__price", fmt(it.qty * it.cents));
     side.appendChild(price);
-    var rm = el("button", "cart-item__remove", "Eliminar");
+    var rm = el("button", "cart-item__remove", "Quitar");
     rm.type = "button"; rm.setAttribute("data-action", "remove");
-    rm.setAttribute("aria-label", "Eliminar " + it.name + ", talla " + it.size);
+    rm.setAttribute("aria-label", "Quitar " + it.name + ", talla " + it.size);
     side.appendChild(rm);
 
     li.appendChild(media); li.appendChild(info); li.appendChild(side);

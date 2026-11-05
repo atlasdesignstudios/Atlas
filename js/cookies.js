@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Gestor de consentimiento de cookies
+   LUSIUS — Gestor de consentimiento de cookies
    Cumple los criterios habituales de la AEPD (Guía sobre el uso de cookies):
    · «Aceptar todas», «Rechazar todas» y «Configurar» con el mismo aspecto.
    · Nada que no sea técnico se activa sin consentimiento previo y explícito.
@@ -17,12 +17,12 @@
 
    Categorías: "analytics" y "marketing". Las técnicas no necesitan consentimiento.
    Para reaccionar al consentimiento desde tu código:
-     document.addEventListener("atlas:consent", function (e) { e.detail.analytics … });
+     document.addEventListener("lusius:consent", function (e) { e.detail.analytics … });
    ========================================================================== */
 (function () {
   "use strict";
 
-  var KEY = "atlas_cookie_consent";
+  var KEY = "lusius_cookie_consent";
   var VERSION = 1;
   var MAX_AGE_MS = 365 * 24 * 60 * 60 * 1000; // 12 meses
 
@@ -64,7 +64,7 @@
       node.setAttribute("data-activated", "1");
       node.parentNode.insertBefore(s, node.nextSibling);
     });
-    document.dispatchEvent(new CustomEvent("atlas:consent", { detail: c }));
+    document.dispatchEvent(new CustomEvent("lusius:consent", { detail: c }));
   }
 
   /* ---------- Interfaz ---------- */

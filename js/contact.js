@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Formulario de contacto
+   LUSIUS — Formulario de contacto
    Esta web es estática: no tiene servidor que reciba mensajes. Por eso el
    formulario NO envía nada por sí mismo: al pulsar el botón abre el programa
    de correo del visitante con el mensaje ya redactado, y lo envía él.
@@ -14,7 +14,7 @@
   var form = document.getElementById("contact-form");
   if (!form) return;
 
-  var G = window.AtlasGuard;
+  var G = window.LusiusGuard;
   var guard = G ? G.attach(form, "contacto") : null;
   var TO = (G && G.addr(form)) || form.getAttribute("data-to") || "";
   var MAX = 800;          // límite de caracteres del mensaje (los enlaces mailto no admiten textos largos)
@@ -78,7 +78,7 @@
     var topic = G ? G.clean(value(fields[1]), 80) : value(fields[1]);
     var message = G ? G.clean(value(fields[2]), MAX, true) : value(fields[2]).slice(0, MAX);
 
-    var subject = "[Atlas web] " + topic;
+    var subject = "[Lusius web] " + topic;
     var body = "Hola, soy " + name + ".\n\n" + message;
     var href = "mailto:" + TO +
       "?subject=" + encodeURIComponent(subject) +

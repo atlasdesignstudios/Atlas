@@ -1,10 +1,10 @@
 /* ==========================================================================
-   ATLAS — Página de favoritos (favoritos.html)
+   LUSIUS — Página de favoritos (favoritos.html)
    · Muestra las prendas guardadas con su precio actual y los avisos de cada una
      (precio rebajado, pocas unidades, agotada).
    · Formulario opcional para pedir los avisos también por correo.
 
-   Los datos vienen de js/favorites.js (window.AtlasFavs); este archivo solo pinta la página.
+   Los datos vienen de js/favorites.js (window.LusiusFavs); este archivo solo pinta la página.
 
    Avisos por correo: esta web es estática y no tiene servidor. Igual que la lista VIP (js/vip.js):
      · data-endpoint vacío (modo actual): al enviar se abre el programa de correo del visitante
@@ -16,7 +16,7 @@
 (function () {
   "use strict";
 
-  var F = window.AtlasFavs;
+  var F = window.LusiusFavs;
   var listEl = document.getElementById("favs-list");
   if (!F || !listEl) return;
 
@@ -95,11 +95,11 @@
     if (alerts.length) body.appendChild(alertNode(it, alerts));
 
     var actions = el("div", "fav-card__actions");
-    var see = el("a", "btn", "Choose size");
+    var see = el("a", "btn", "Elegir talla");
     see.href = href;
-    var rm = el("button", "fav-card__remove", "Remove");
+    var rm = el("button", "fav-card__remove", "Quitar");
     rm.type = "button";
-    rm.setAttribute("aria-label", "Remove from favorites: " + it.name);
+    rm.setAttribute("aria-label", "Quitar de favoritos: " + it.name);
     rm.addEventListener("click", function () {
       F.remove(it.id);
       titleEl.focus();
@@ -128,7 +128,7 @@
   /* ---------- Avisos por correo ---------- */
   if (!form) return;
 
-  var G = window.AtlasGuard;
+  var G = window.LusiusGuard;
   var guard = G ? G.attach(form, "favoritos") : null;
   var TO = (G && G.addr(form)) || form.getAttribute("data-to") || "";
   var ENDPOINT = form.getAttribute("data-endpoint") || "";
@@ -153,11 +153,11 @@
   }
 
   function sendByMail(address) {
-    var body = "Quiero recibir avisos por correo si baja el precio o quedan pocas unidades de estas prendas de Atlas:\n" +
+    var body = "Quiero recibir avisos por correo si baja el precio o quedan pocas unidades de estas prendas de Lusius:\n" +
                listText() + "\n\nMi correo: " + address + "\n" +
                "Acepto recibir estos avisos por correo electrónico y he leído la política de privacidad.";
     var a = document.createElement("a");
-    a.href = "mailto:" + TO + "?subject=" + encodeURIComponent("Avisos de mis favoritos · Atlas") + "&body=" + encodeURIComponent(body);
+    a.href = "mailto:" + TO + "?subject=" + encodeURIComponent("Avisos de mis favoritos · Lusius") + "&body=" + encodeURIComponent(body);
     a.hidden = true;
     document.body.appendChild(a);
     a.click();

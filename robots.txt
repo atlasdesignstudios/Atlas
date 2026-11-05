@@ -31,4 +31,4 @@ Disallow: /
 User-agent: Amazonbot
 Disallow: /
 
-Sitemap: https://www.atlasstudiobrand.com/sitemap.xml
+Sitemap: https://www.lusiusbrand.com/sitemap.xml

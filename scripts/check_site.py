@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Dependency-free smoke checks for the static Atlas website."""
+"""Dependency-free smoke checks for the static Lusius website."""
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
@@ -8,7 +8,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-DOMAIN = "www.atlasstudiobrand.com"
+DOMAIN = "www.lusiusbrand.com"
 errors = []
 
 class PageParser(HTMLParser):
@@ -92,7 +92,7 @@ for page in pages:
         parts = urlsplit(raw)
         if parts.scheme and parts.scheme not in ("http", "https"):
             continue
-        if parts.netloc and parts.hostname not in (DOMAIN, "atlasstudiobrand.com"):
+        if parts.netloc and parts.hostname not in (DOMAIN, "lusiusbrand.com"):
             continue
         path = unquote(parts.path)
         if path.startswith("/"):
@@ -131,9 +131,9 @@ else:
     fail("Missing sitemap.xml.")
 
 if errors:
-    print("Atlas site checks FAILED:")
+    print("Lusius site checks FAILED:")
     for error in errors:
         print(f" - {error}")
     sys.exit(1)
 
-print(f"Atlas site checks passed: {len(pages)} HTML pages, local references, IDs, metadata and sitemap XML.")
+print(f"Lusius site checks passed: {len(pages)} HTML pages, local references, IDs, metadata and sitemap XML.")

@@ -1,10 +1,10 @@
 /* ==========================================================================
-   ATLAS — Favoritos (se carga en todas las páginas, después de cart.js)
+   LUSIUS — Favoritos (se carga en todas las páginas, después de cart.js)
    · Corazón en cada prenda del catálogo y de las fichas: guarda o quita de favoritos.
    · Icono de favoritos en el header, con contador, junto a la cesta (la cesta no cambia).
    · Avisos: cuando el visitante vuelve a la web, compara el precio y el stock actuales
      con los de cuando guardó la prenda y avisa si ha bajado el precio o quedan pocas unidades.
-   · Todo se guarda en el navegador (localStorage, clave atlas_favs) durante 12 meses.
+   · Todo se guarda en el navegador (localStorage, clave lusius_favs) durante 12 meses.
      Es almacenamiento técnico que el visitante pide al pulsar el corazón: no guarda datos
      personales (ver Política de cookies).
 
@@ -15,12 +15,12 @@
      · Para marcar pocas unidades: añade data-stock="low" al <li data-product> de catalogo.html.
        Para marcarla agotada: data-stock="out". Quita el atributo para volver a la normalidad.
 
-   Lo comparte con favorites-page.js a través de window.AtlasFavs.
+   Lo comparte con favorites-page.js a través de window.LusiusFavs.
    ========================================================================== */
 (function () {
   "use strict";
 
-  var KEY = "atlas_favs";
+  var KEY = "lusius_favs";
   var MAX_AGE_DAYS = 365;
   var MAX_ITEMS = 50;
   var CHECK_EVERY_MS = 10 * 60 * 1000;       // como mucho una consulta a catalogo.html cada 10 minutos
@@ -166,14 +166,14 @@
   function refresh(force) {
     if (!items.length) return Promise.resolve();
     var last = 0;
-    try { last = parseInt(window.sessionStorage.getItem("atlas_favs_checked") || "0", 10) || 0; } catch (e) { /* ignorar */ }
+    try { last = parseInt(window.sessionStorage.getItem("lusius_favs_checked") || "0", 10) || 0; } catch (e) { /* ignorar */ }
     if (!force && Date.now() - last < CHECK_EVERY_MS) return Promise.resolve();
 
     return fetch(ROOT + "catalogo.html", { cache: "no-cache" })
       .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.text(); })
       .then(function (html) {
         var doc = new DOMParser().parseFromString(html, "text/html");
-        try { window.sessionStorage.setItem("atlas_favs_checked", String(Date.now())); } catch (e) { /* ignorar */ }
+        try { window.sessionStorage.setItem("lusius_favs_checked", String(Date.now())); } catch (e) { /* ignorar */ }
         applyCurrent(readProducts(doc));
       })
       .catch(function () { /* sin conexión o desde disco: se mantienen los datos guardados */ });
@@ -222,7 +222,7 @@
     countEl.textContent = String(n);
     countEl.hidden = n === 0;
     linkEl.classList.toggle("has-alert", a > 0);
-    linkEl.setAttribute("aria-label", "Favorites" + (n ? ", " + n + (n === 1 ? " item" : " items") : "") + (a ? ", with updates" : ""));
+    linkEl.setAttribute("aria-label", "Favoritos" + (n ? ", " + n + (n === 1 ? " prenda" : " prendas") : "") + (a ? ", con novedades" : ""));
   }
 
   function announce(text) {
@@ -252,7 +252,7 @@
   function paint(btn, info) {
     var on = !!find(info.id);
     btn.setAttribute("aria-pressed", String(on));
-    btn.setAttribute("aria-label", (on ? "Remove from favorites: " : "Add to favorites: ") + info.name);
+    btn.setAttribute("aria-label", (on ? "Quitar de favoritos: " : "Añadir a favoritos: ") + info.name);
   }
 
   function refreshButtons() {
@@ -273,11 +273,11 @@
       btn.addEventListener("click", function () {
         if (find(info.id)) {
           remove(info.id);
-          announce("Removed from favorites: " + info.name);
+          announce("Quitado de favoritos: " + info.name);
         } else if (add(info)) {
-          announce("Added to favorites: " + info.name + ". We'll let you know here if the price drops or few units are left.");
+          announce("Añadido a favoritos: " + info.name + ". Te avisaremos aquí si baja de precio o quedan pocas unidades.");
         } else {
-          announce("You can't save more than " + MAX_ITEMS + " items in favorites.");
+          announce("No se puede guardar más de " + MAX_ITEMS + " prendas en favoritos.");
         }
       });
       buttons.push({ btn: btn, info: info });
@@ -305,8 +305,8 @@
 
     var signature = withAlerts.map(function (it) { return it.id + ":" + it.now + ":" + it.stock; }).join("|");
     try {
-      if (window.sessionStorage.getItem("atlas_favs_notice") === signature) return;   // ya avisado en esta visita
-      window.sessionStorage.setItem("atlas_favs_notice", signature);
+      if (window.sessionStorage.getItem("lusius_favs_notice") === signature) return;   // ya avisado en esta visita
+      window.sessionStorage.setItem("lusius_favs_notice", signature);
     } catch (e) { /* sin sessionStorage: se avisa cada vez */ }
 
     toastEl = document.createElement("div");
@@ -316,12 +316,12 @@
     p.appendChild(document.createTextNode("Novedades en tus favoritos. " + (withAlerts.length === 1 ? describe(withAlerts[0]) : "Hay cambios en " + withAlerts.length + " prendas.") + " "));
     var a = document.createElement("a");
     a.href = ROOT + "favoritos.html";
-    a.textContent = "View favorites";
+    a.textContent = "Ver favoritos";
     p.appendChild(a);
     var close = document.createElement("button");
     close.type = "button";
     close.className = "fav-toast__close";
-    close.textContent = "Close";
+    close.textContent = "Cerrar";
     close.addEventListener("click", function () { toastEl.hidden = true; });
     toastEl.appendChild(p);
     toastEl.appendChild(close);
@@ -334,7 +334,7 @@
   updateHeader();
   refreshButtons();
 
-  window.AtlasFavs = {
+  window.LusiusFavs = {
     list: function () { return items.map(function (it) { return Object.assign({}, it); }); },
     alertsOf: alertsOf,
     remove: remove,

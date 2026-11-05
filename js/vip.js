@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Lista VIP (nosotros.html)
+   LUSIUS — Lista VIP (nosotros.html)
    Esta web es estática: no tiene servidor que guarde correos. Por eso hay dos modos:
 
    1) data-endpoint vacío (modo actual): al enviar, se abre el programa de correo del
@@ -22,7 +22,7 @@
   var form = document.getElementById("vip-form");
   if (!form) return;
 
-  var G = window.AtlasGuard;
+  var G = window.LusiusGuard;
   var guard = G ? G.attach(form, "vip") : null;
   var TO = (G && G.addr(form)) || form.getAttribute("data-to") || "";
   var ENDPOINT = form.getAttribute("data-endpoint") || "";
@@ -67,10 +67,10 @@
 
   // Modo 1: abre el programa de correo con el mensaje redactado
   function sendByMail(address) {
-    var subject = "Lista VIP Atlas · Drop I";
-    var body = "Quiero entrar en la lista VIP de Atlas y recibir el aviso del Drop I.\n" +
+    var subject = "Lista VIP Lusius · Drop I";
+    var body = "Quiero entrar en la lista VIP de Lusius y recibir el aviso del Drop I.\n" +
                "Mi correo: " + address + "\n" +
-               "Acepto recibir comunicaciones comerciales de Atlas por correo electrónico y he leído la política de privacidad.";
+               "Acepto recibir comunicaciones comerciales de Lusius por correo electrónico y he leído la política de privacidad.";
     var a = document.createElement("a");
     a.href = "mailto:" + TO + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
     a.hidden = true;

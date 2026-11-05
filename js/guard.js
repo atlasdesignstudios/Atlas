@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Protección de formularios (se carga antes de contact.js, vip.js y favorites-page.js)
+   LUSIUS — Protección de formularios (se carga antes de contact.js, vip.js y favorites-page.js)
    Capas contra spam y automatizaciones, sin molestar a personas reales (sin CAPTCHA visible):
      1. Honeypot: campo invisible que solo rellenan los bots. Si viene relleno, se descarta el
         envío y se responde como si hubiera ido bien (el bot no sabe que ha sido detectado).
@@ -39,7 +39,7 @@
   function attach(form, name, minMs, cooldownMs) {
     minMs = minMs || 3000;
     cooldownMs = cooldownMs || 30000;
-    var key = "atlas_guard_" + name;
+    var key = "lusius_guard_" + name;
 
     var trap = document.createElement("div");
     trap.setAttribute("aria-hidden", "true");
@@ -50,7 +50,7 @@
     trap.style.overflow = "hidden";
     var input = document.createElement("input");
     input.type = "text";
-    input.name = "atlas_hp";
+    input.name = "lusius_hp";
     input.tabIndex = -1;
     input.autocomplete = "off";
     input.setAttribute("aria-hidden", "true");
@@ -74,5 +74,5 @@
     };
   }
 
-  window.AtlasGuard = { clean: clean, addr: addr, attach: attach };
+  window.LusiusGuard = { clean: clean, addr: addr, attach: attach };
 })();

@@ -1,10 +1,10 @@
-# Preparación de pagos — Atlas
+# Preparación de pagos — Lusius
 
 Estado: diseño técnico preparado; **no se aceptan pagos todavía**.
 
 ## Decisión técnica propuesta
 
-Usar **Stripe Checkout alojado** para la primera versión de pagos de Atlas. Es una opción adecuada para una tienda pequeña porque Stripe sirve la página de pago, gestiona la captura de tarjeta y los pasos de autenticación reforzada, y evita que Atlas procese directamente datos de tarjeta.
+Usar **Stripe Checkout alojado** para la primera versión de pagos de Lusius. Es una opción adecuada para una tienda pequeña porque Stripe sirve la página de pago, gestiona la captura de tarjeta y los pasos de autenticación reforzada, y evita que Lusius procese directamente datos de tarjeta.
 
 La integración se mantendrá detrás de una interfaz de proveedor para no acoplar el carrito a Stripe. Si en el futuro se decide usar otro proveedor, se podrá sustituir el adaptador del servidor.
 

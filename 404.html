@@ -4,20 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
-  <title>Página no encontrada — Atlas</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+  <title>Página no encontrada — Lusius</title>
   <!-- Las rutas empiezan por «/» porque este archivo lo muestra el servidor en
        cualquier dirección que no exista (Netlify, GitHub Pages, etc.). -->
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <link rel="preload" href="assets/fonts/pirata-one-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <main class="nf">
+    <img class="nf__mark" src="/assets/img/lusius-emblem.png" alt="" width="460" height="700" aria-hidden="true">
+    <p class="nf__brand">LUSIUS</p>
     <h1>404</h1>
     <p>No encontramos esta página. Puede que el enlace esté mal escrito o que ya no exista.</p>
-    <a class="btn" href="index.html">Back to home</a>
+    <a class="btn" href="/index.html">Volver al inicio</a>
   </main>
 </body>
 </html>

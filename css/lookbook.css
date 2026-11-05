@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ATLAS — Lookbook «En la calle» (página de inicio)
+   LUSIUS — Lookbook «En la calle» (página de inicio)
    Fotos en blanco y negro con grano analógico. Hasta tener fotos reales, cada hueco
    muestra una textura de hormigón; ver el comentario de index.html para activarlas.
    ========================================================================== */
@@ -14,20 +14,21 @@
 }
 .lookbook__kicker {
   margin: 0;
-  font: 500 12px/1.4 var(--font-ui);
-  letter-spacing: 0.28em;
+  font: 500 11px/1.4 var(--font-ui);
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: var(--gold);
 }
 .lookbook__title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 500;
   font-size: clamp(32px, 5vw, 64px);
-  line-height: 1.1;
+  line-height: 1.12;
+  letter-spacing: 0.03em;
 }
 
-.lookbook__lead { max-width: 56ch; margin: 0 auto; font-size: 15px; line-height: 1.8; color: #b5b5b5; }
+.lookbook__lead { max-width: 56ch; margin: 0 auto; font-size: 15px; font-weight: 300; line-height: 1.85; color: var(--muted); }
 .lookbook__grid {
   display: grid;
   width: 100%;
@@ -48,8 +49,10 @@
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: #0a0a0a;
+  background: var(--surface);
+  transition: border-color 0.25s ease;
 }
+.look__frame:hover { border-color: var(--gold-dim); }
 .look__frame img {
   display: block;
   width: 100%;
@@ -61,8 +64,8 @@
   width: 100%;
   height: 100%;
   background:
-    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(150,150,150,.20) 0%, rgba(150,150,150,0) 100%),
-    linear-gradient(180deg, #141414 0%, #050505 100%);
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,169,106,.10) 0%, rgba(201,169,106,0) 100%),
+    linear-gradient(180deg, #15120f 0%, #080808 100%);
 }
 /* Grano analógico por encima de la foto o del hueco */
 .look__frame::after {
@@ -82,11 +85,12 @@
   z-index: 1;
   padding: 28px 14px 12px;
   background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.75) 100%);
-  font-size: 11px;
+  font-size: 10px;
+  font-weight: 500;
   letter-spacing: 0.22em;
   text-align: left;
   text-transform: uppercase;
-  color: #cfcfcf;
+  color: var(--gold);
 }
 
 @media (max-width: 900px) {
