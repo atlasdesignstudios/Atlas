@@ -1,4 +1,4 @@
-# Atlas — web estática
+# LUSIUS — web estática
 
 HTML, CSS y JavaScript sin dependencias ni paso de compilación. Se abre con doble clic en `index.html` o se sube tal cual a cualquier alojamiento.
 
