@@ -4,8 +4,8 @@
    · Panel lateral con cantidades, quitar prendas y subtotal (IVA incluido).
    · La cesta se guarda en el navegador (localStorage) durante 30 días.
      Es almacenamiento técnico: no necesita consentimiento (ver Política de cookies).
-   · El botón de pago está desactivado hasta que indiques una URL de pago
-     (pasarela o tienda) en CONFIG.checkoutUrl.
+   · El botón de pago permanece desactivado hasta que exista un backend que
+     valide el carrito y cree una sesión de pago segura.
 
    Cómo se enlaza con el HTML:
      <button data-cart-open>            abre el panel (en el header)
@@ -16,13 +16,8 @@
 (function () {
   "use strict";
 
-  /* ---------- CONFIGURACIÓN (lo único que tendrás que tocar) ---------- */
+  /* ---------- CONFIGURACIÓN local ---------- */
   var CONFIG = {
-    // URL de pago, p. ej. "https://tu-tienda.com/checkout". Vacío = pago desactivado.
-    checkoutUrl: "",
-    // Dominios externos a los que se permite enviar al cliente a pagar (además de esta misma web).
-    // P. ej. ["buy.stripe.com", "checkout.shopify.com"]. Solo se admiten direcciones https.
-    checkoutHosts: [],
     storageKey: "atlas_cart",
     maxAgeDays: 30,        // la cesta caduca si no se toca en este tiempo
     maxPerLine: 10         // unidades máximas de una misma prenda y talla
@@ -42,17 +37,9 @@
   var money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
   function fmt(cents) { return money.format(cents / 100); }
 
-  // Solo se acepta una URL de pago https de esta web o de un dominio de CONFIG.checkoutHosts
-  function safeCheckoutUrl() {
-    if (!CONFIG.checkoutUrl) return "";
-    try {
-      var u = new URL(CONFIG.checkoutUrl, window.location.href);
-      if (u.protocol !== "https:") return "";
-      if (u.hostname !== window.location.hostname && CONFIG.checkoutHosts.indexOf(u.hostname) < 0) return "";
-      return u.href;
-    } catch (e) { return ""; }
-  }
-  var CHECKOUT = safeCheckoutUrl();
+  // Bloqueo deliberado: no se permiten enlaces de pago estáticos desde el navegador.
+  // Se habilitará cuando el backend cree sesiones y valide precios/stock en servidor.
+  var CHECKOUT = false;
 
 
   /* ---------- Estado y almacenamiento ---------- */
