@@ -7,13 +7,16 @@ HTML, CSS y JavaScript sin dependencias ni paso de compilación. Se abre con dob
 - `legal/` — aviso legal, privacidad, cookies y condiciones de venta (con campos `[entre corchetes]` por completar)
 - `css/` — `styles.css` (base, hero, cookies), `catalog.css`, `cart.css`, `pages.css` (Nosotros y Contacto), `legal.css`
 - `js/` — `cart.js` (cesta), `cookies.js` (consentimiento), `catalog.js`, `contact.js`, `main.js` (menú), `disk-bridge.js` (solo al abrir desde el disco)
+- `scripts/check_site.py` — comprobaciones de referencias locales, IDs, metadatos y sitemap
+- `.github/workflows/quality.yml` — CI para comprobaciones HTML y sintaxis JavaScript
+- `docs/PAGOS-STRIPE.md` — diseño de la integración de pagos (sin activar cobros)
 - `_headers`, `robots.txt`, `sitemap.xml`
 
 ## Cambiar un producto
 En `catalogo.html`, cada prenda es un `<li class="card" data-product …>`. **El precio está en dos sitios y deben coincidir:** el atributo `data-price` (lo que cobra la cesta) y el texto de `card__price` (lo que ve el cliente).
 
-## Activar el pago
-En `js/cart.js`, `CONFIG.checkoutUrl` está vacío y el botón «Finalizar compra» queda desactivado. Cuando tengas pasarela de pago o tienda, pon ahí la dirección. Los precios deben validarse siempre en el servidor, nunca fiarse de la cesta del navegador.
+## Pagos
+El botón de compra permanece desactivado. No conectes una URL fija de pago ni expongas claves privadas en el navegador. La arquitectura propuesta con Stripe Checkout, backend, webhooks firmados, variables de entorno y requisitos previos está documentada en [docs/PAGOS-STRIPE.md](docs/PAGOS-STRIPE.md). GitHub Pages por sí solo no puede ejecutar endpoints privados ni guardar secretos. Antes de implementar el backend hay que confirmar el alojamiento y configurar el entorno de servidor. Los precios y el stock deberán validarse siempre en el servidor.
 
 ## SEO: qué cambiar cuando tengas el dominio definitivo
 1. Sustituye `https://www.atlasstudiobrand.com` por tu dominio en todos los `.html`, en `sitemap.xml` y en `robots.txt`.
@@ -28,7 +31,7 @@ En `js/cart.js`, `CONFIG.checkoutUrl` está vacío y el botón «Finalizar compr
 
 ## Pendiente antes de publicar
 - Completar los campos `[entre corchetes]` de `legal/` y quitar los avisos de borrador.
-- Alojar las tipografías (Jost y Pirata One) en `assets/fonts/` en vez de cargarlas desde Google Fonts, por privacidad (RGPD).
+- Confirmar los datos reales del negocio, proveedores, envíos, impuestos y plazos; revisar los documentos legales con un profesional antes de vender.
 - Confirmar que tienes derechos sobre las ilustraciones y fotografías de las prendas y del fondo.
 
 ## Novedades (17 oct 2026)
@@ -37,6 +40,9 @@ En `js/cart.js`, `CONFIG.checkoutUrl` está vacío y el botón «Finalizar compr
 - Hero con subtítulo y botón «Ver el primer drop»; botón de ficha «Ponte la armadura»; enlace «Avísame cuando abra» en ficha y cesta.
 - Pendiente antes de abrir la tienda: composición y cuidados, tabla de medidas, datos `Product` con `offers` (JSON-LD) y revisar el correo de contacto.
 - Favoritos (`favoritos.html`, `js/favorites.js`, `js/favorites-page.js`, `css/favorites.css`): corazón en cada prenda, icono con contador junto a la cesta y avisos de bajada de precio o pocas unidades cuando el visitante vuelve. Precio y stock se leen de `catalogo.html` (`data-price`, y `data-stock="low"` / `"out"` para marcar pocas unidades o agotada). Los avisos por correo necesitan conectar un proveedor (ver cabecera de `js/favorites-page.js`).
+
+## Comprobaciones
+Ejecuta `python scripts/check_site.py` para revisar metadatos, IDs, enlaces y recursos locales, y `node --check js/*.js` (o el bucle equivalente de la acción) para comprobar la sintaxis JavaScript. GitHub Actions ejecuta estas comprobaciones al actualizar `main` y en pull requests.
 
 ## Seguridad
 Todo lo relativo a cabeceras HTTP, CSP, Cloudflare, protección de formularios y buenas prácticas está en `SEGURIDAD.md`.
