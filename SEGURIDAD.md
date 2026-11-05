@@ -45,12 +45,12 @@ Qué significa cada decisión:
 
 - `default-src 'none'`: lo que no se permita expresamente, se bloquea.
 - `script-src 'self'`: solo se ejecutan scripts de tu propia web. Sin `'unsafe-inline'` ni `'unsafe-eval'`: un XSS no podría ejecutar nada. Los bloques `application/ld+json` (SEO) no son código y no se ven afectados.
-- `style-src 'self'` y `font-src 'self'`: las fuentes (Pirata One y Jost) se alojan en `assets/fonts/`, así que no hace falta permitir Google Fonts. No hay estilos en línea en el HTML.
+- `style-src 'self'` y `font-src 'self'`: las fuentes Pirata One y Jost están alojadas en `assets/fonts/`; no se solicita Google Fonts. No hay estilos en línea en el HTML.
 - `img-src 'self' data:`: `data:` es necesario solo para el grano del lookbook (SVG en el CSS).
 - `connect-src 'self'`: el JavaScript solo puede hablar con tu web. **Si conectas un proveedor de newsletter, de formularios o de pago, hay que añadir su dominio aquí.**
 - `form-action 'self'`, `frame-ancestors 'none'`, `object-src 'none'`: ni formularios hacia fuera, ni iframes ajenos, ni plugins.
 
-Mejora recomendada: **alojar tú las tipografías** (Jost y Pirata One) en `assets/fonts/` y quitar Google Fonts de la CSP. Así desaparece el único recurso de terceros: la CSP queda en `'self'` para todo, no se envía la IP de los visitantes a Google (un asunto de RGPD) y la web carga más rápido. No pude descargarlas desde aquí porque este entorno no tiene acceso a internet.
+Estado actual: las tipografías ya están alojadas localmente en `assets/fonts/`. La web no necesita Google Fonts para mostrarlas y evita esa conexión externa. Si en el futuro se añaden proveedores externos, hay que documentar el tratamiento de datos y ajustar la CSP de forma específica.
 
 Otras cabeceras de `_headers`:
 
@@ -117,7 +117,7 @@ pero **no protege el cobro**. Cuando actives pagos:
 
 - Usa una pasarela que fije el precio en su servidor (por ejemplo, enlaces de pago de Stripe con el precio ya definido para cada producto, o Shopify/Lemon Squeezy).
 - Envía al pago solo *id + talla + cantidad*, nunca el importe, y que sea la pasarela quien calcule el total.
-- Añade el dominio de pago a `CONFIG.checkoutHosts` en `cart.js` y a `connect-src`/`form-action` en la CSP si hace falta.
+- No guardes claves ni precios de confianza en `cart.js`. Con Stripe Checkout alojado, el navegador debe llamar al endpoint propio del backend; el servidor crea la sesión y calcula importes desde su catálogo. Mantén el webhook firmado en el backend. Revisa CSP solo según el modo de integración elegido. Consulta `docs/PAGOS-STRIPE.md`.
 
 ---
 
