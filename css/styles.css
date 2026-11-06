@@ -158,15 +158,6 @@ a   { color: inherit; text-decoration: none; }
   background: var(--black);
 }
 
-/* Filtro SVG oculto */
-.hero__svg-filter {
-  position: absolute;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  visibility: hidden;
-}
-
 /* Fondo animado del Hero: Ojo psicodélico en blanco y negro puro */
 .hero__bg {
   position: absolute;
@@ -195,10 +186,10 @@ a   { color: inherit; text-decoration: none; }
   object-fit: cover;
   object-position: center;
   opacity: 0.85;
-  filter: url(#hypnotic-waves) grayscale(1) contrast(195%) brightness(105%);
+  filter: grayscale(1) contrast(1.85) brightness(1.05);
   transform-origin: center center;
-  animation: hypnoticBreath 9s ease-in-out infinite alternate;
-  will-change: transform;
+  animation: hypnoticBreath 16s ease-in-out infinite alternate;
+  backface-visibility: hidden;
   pointer-events: none;
 }
 
@@ -221,10 +212,10 @@ a   { color: inherit; text-decoration: none; }
     transform: translate(-50%, -50%) scale(1) rotate(0deg);
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.07) rotate(1.2deg);
+    transform: translate(-50%, -50%) scale(1.045) rotate(0.45deg);
   }
   100% {
-    transform: translate(-50%, -50%) scale(0.97) rotate(-1deg);
+    transform: translate(-50%, -50%) scale(1.015) rotate(-0.35deg);
   }
 }
 
