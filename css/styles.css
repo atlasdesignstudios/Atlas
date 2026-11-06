@@ -179,17 +179,17 @@ a   { color: inherit; text-decoration: none; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 108%;
-  height: 108%;
-  min-width: 108%;
-  min-height: 108%;
+  width: 116%;
+  height: 116%;
+  min-width: 116%;
+  min-height: 116%;
   object-fit: cover;
   object-position: center;
   opacity: 0.85;
-  filter: grayscale(1) contrast(1.85) brightness(1.05);
   transform-origin: center center;
-  animation: hypnoticBreath 16s ease-in-out infinite alternate;
+  animation: hypnoticBreath 22s ease-in-out infinite alternate;
   backface-visibility: hidden;
+  will-change: transform;
   pointer-events: none;
 }
 
@@ -209,13 +209,13 @@ a   { color: inherit; text-decoration: none; }
 
 @keyframes hypnoticBreath {
   0% {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    transform: translate(-50%, -50%) scale(1.035) rotate(-0.35deg);
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.045) rotate(0.45deg);
+    transform: translate(-50%, -50%) scale(1.075) rotate(0.35deg);
   }
   100% {
-    transform: translate(-50%, -50%) scale(1.015) rotate(-0.35deg);
+    transform: translate(-50%, -50%) scale(1.045) rotate(-0.25deg);
   }
 }
 
@@ -363,7 +363,7 @@ a   { color: inherit; text-decoration: none; }
   .logo__mark { height: 34px; }
   .logo__word { font-size: 15px; letter-spacing: 0.18em; text-indent: 0.18em; }
   .hero__emblem { height: 68vh; opacity: 0.13; }
-  .hero__bg-img { width: 112%; height: 112%; min-width: 112%; min-height: 112%; opacity: 0.85; }
+  .hero__bg-img { width: 120%; height: 120%; min-width: 120%; min-height: 120%; opacity: 0.85; }
   .hero__title { letter-spacing: 0.05em; text-indent: 0.05em; }
   .hero__sub { max-width: 34ch; }
   .site-footer__brand { font-size: 24px; }
