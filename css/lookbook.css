@@ -11,6 +11,8 @@
   padding: clamp(56px, 8vw, 112px) var(--gutter);
   border-top: 1px solid var(--line);
   text-align: center;
+  /* Aísla layout/pintado de esta sección del resto del documento. */
+  contain: content;
 }
 .lookbook__kicker {
   margin: 0;

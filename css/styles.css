@@ -179,6 +179,8 @@ a   { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  /* Aísla el repintado del filtro animado: no invalida el resto de la página. */
+  contain: paint;
 }
 
 .hero__bg-img {
@@ -196,9 +198,13 @@ a   { color: inherit; text-decoration: none; }
   filter: url(#hypnotic-waves) grayscale(1) contrast(195%) brightness(105%);
   transform-origin: center center;
   animation: hypnoticBreath 9s ease-in-out infinite alternate;
-  will-change: transform, filter;
+  will-change: transform;
   pointer-events: none;
 }
+
+/* main.js pausa la animación cuando el hero sale de pantalla (no se ve, así
+   que no cambia nada visualmente y se libera CPU durante el resto del scroll). */
+.hero-paused .hero__bg-img { animation-play-state: paused; }
 
 /* Viñeta neutra para contraste y legibilidad */
 .hero__bg-overlay {
@@ -661,6 +667,8 @@ a   { color: inherit; text-decoration: none; }
   padding: clamp(64px, 9vw, 128px) var(--gutter);
   border-top: 1px solid var(--line);
   text-align: center;
+  /* Aísla layout/pintado de esta sección del resto del documento. */
+  contain: content;
 }
 .manifesto__quote {
   max-width: 20ch;

@@ -5,6 +5,24 @@
 (function () {
   "use strict";
 
+  /* Pausa las animaciones del hero cuando no se ve (solo ahorra CPU; el
+     resultado visual es idéntico porque están fuera de pantalla). */
+  var heroBg = document.querySelector(".hero__bg");
+  var heroFilter = document.querySelector(".hero__svg-filter");
+  if (heroBg && "IntersectionObserver" in window) {
+    var heroObserver = new IntersectionObserver(function (entries) {
+      var visible = entries[0].isIntersecting;
+      document.documentElement.classList.toggle("hero-paused", !visible);
+      if (heroFilter) {
+        if (typeof heroFilter.pauseAnimations === "function") {
+          if (visible) heroFilter.unpauseAnimations();
+          else heroFilter.pauseAnimations();
+        }
+      }
+    });
+    heroObserver.observe(heroBg);
+  }
+
   var header = document.querySelector(".site-header");
   var toggle = document.querySelector(".menu-toggle");
   var menu = document.getElementById("menu");
