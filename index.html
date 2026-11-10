@@ -26,7 +26,7 @@
   <meta name="twitter:title" content="Lusius — Streetwear en blanco y negro | We rule the city">
   <meta name="twitter:description" content="Lusius es una casa independiente de streetwear en blanco y negro con base en Valencia: hoodie con cremallera, suéter jacquard, camisetas y camisetas largas. Primer drop.">
   <meta name="twitter:image" content="https://www.lusiusbrand.com/assets/img/og-lusius.png">
-  <link rel="preload" as="image" href="assets/img/hero-eye-lusius.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/img/hero-onda-0.webp" fetchpriority="high">
 
   <!-- Tipografías:
        · Cinzel → mayúsculas romanas, voz de la casa
@@ -115,15 +115,15 @@
     <section class="hero" aria-labelledby="hero-title">
       <!-- Fondo animado: ojo psicodélico e hipnótico -->
       <div class="hero__bg" aria-hidden="true">
-        <svg class="hero__svg-filter" width="0" height="0" aria-hidden="true">
-          <filter id="hypnotic-waves">
-            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="2" result="noise">
-              <animate attributeName="baseFrequency" dur="14s" values="0.012 0.016; 0.022 0.026; 0.012 0.016" repeatCount="indefinite" />
-            </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-        </svg>
-        <img class="hero__bg-img" src="assets/img/hero-eye-lusius.webp" alt="" width="826" height="1024" loading="eager" fetchpriority="high" decoding="async">
+        <!-- Las ondas se «hornean» en 4 imágenes (mismo efecto de desplazamiento que el
+             filtro SVG) y se funden entre sí con CSS: el movimiento es el mismo,
+             pero el navegador ya no recalcula el filtro en cada fotograma. -->
+        <div class="hero__bg-img">
+          <img class="hero__layer hero__layer--0" src="assets/img/hero-onda-0.webp" alt="" width="826" height="1024" loading="eager" fetchpriority="high" decoding="async">
+          <img class="hero__layer hero__layer--1" src="assets/img/hero-onda-1.webp" alt="" width="826" height="1024" loading="eager" fetchpriority="low" decoding="async">
+          <img class="hero__layer hero__layer--2" src="assets/img/hero-onda-2.webp" alt="" width="826" height="1024" loading="eager" fetchpriority="low" decoding="async">
+          <img class="hero__layer hero__layer--3" src="assets/img/hero-onda-3.webp" alt="" width="826" height="1024" loading="eager" fetchpriority="low" decoding="async">
+        </div>
         <div class="hero__bg-overlay"></div>
       </div>
 
