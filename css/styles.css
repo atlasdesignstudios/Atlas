@@ -301,23 +301,6 @@ a   { color: inherit; text-decoration: none; }
   text-wrap: balance;
 }
 
-.hero__slogan {
-  max-width: 34ch;
-  margin: 0;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(16px, 1.8vw, 24px);
-  line-height: 1.45;
-  letter-spacing: 0.04em;
-  color: var(--white);
-  text-wrap: balance;
-  text-shadow:
-    0 2px 14px rgba(0, 0, 0, 1),
-    0 1px 3px rgba(0, 0, 0, 1),
-    0 0 30px rgba(0, 0, 0, 0.9);
-}
-
 .hero__sub {
   max-width: 46ch;
   margin: 0;
@@ -768,7 +751,7 @@ a   { color: inherit; text-decoration: none; }
   margin: 0 auto clamp(40px, 6vw, 80px);
 }
 .manifesto__intro .manifesto__quote {
-  max-width: 14ch;
+  max-width: 18ch;
   font-size: clamp(32px, 4.2vw, 60px);
 }
 .manifesto__intro .manifesto__text { margin-bottom: 0; }
@@ -790,7 +773,6 @@ a   { color: inherit; text-decoration: none; }
 /* Entrada suave del hero (se desactiva con «reducir movimiento») */
 @media (prefers-reduced-motion: no-preference) {
   .hero__title { animation: heroIn 1.1s cubic-bezier(.2,.7,.2,1) both; }
-  .hero__slogan { animation: heroIn 1.1s .3s cubic-bezier(.2,.7,.2,1) both; }
   .hero .btn   { animation: heroIn 1.1s .6s cubic-bezier(.2,.7,.2,1) both; }
 }
 @media (prefers-reduced-motion: reduce) {
