@@ -49,3 +49,70 @@
     if (e.matches) setOpen(false);
   });
 })();
+
+/* ==========================================================================
+   Auto-actualización
+   GitHub Pages deja la página en caché del navegador hasta 10 minutos, así que
+   tras publicar un cambio a veces se sigue viendo la versión vieja. Aquí se
+   compara la copia en caché con la del servidor (una petición ligera que
+   devuelve 304 si no hay cambios). Si difieren, se refrescan CSS, JS e
+   imágenes y se recarga la página una sola vez.
+   ========================================================================== */
+(function () {
+  "use strict";
+  if (!("fetch" in window) || !window.Promise || location.protocol === "file:") return;
+
+  var KEY = "lusius-update-check";
+  var MIN_GAP = 30000; // no comprobar más de una vez cada 30 s
+
+  function recently() {
+    try {
+      var last = +sessionStorage.getItem(KEY) || 0;
+      if (Date.now() - last < MIN_GAP) return true;
+      sessionStorage.setItem(KEY, String(Date.now()));
+    } catch (e) { /* sin sessionStorage: se comprueba igualmente */ }
+    return false;
+  }
+
+  function sameOriginAssets() {
+    var urls = [];
+    function add(u) {
+      try {
+        var a = new URL(u, location.href);
+        if (a.origin === location.origin && urls.indexOf(a.href) < 0) urls.push(a.href);
+      } catch (e) { /* url no válida */ }
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('link[rel="stylesheet"][href]'), function (n) { add(n.getAttribute("href")); });
+    Array.prototype.forEach.call(document.querySelectorAll("script[src]"), function (n) { add(n.getAttribute("src")); });
+    Array.prototype.forEach.call(document.querySelectorAll("img[src]"), function (n) { add(n.getAttribute("src")); });
+    return urls;
+  }
+
+  function check() {
+    if (recently()) return;
+    var ae = document.activeElement;
+    if (ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) return; // no interrumpir un formulario
+    var url = location.pathname + location.search;
+    fetch(url, { cache: "force-cache" })
+      .then(function (r) { return r.text(); })
+      .then(function (cached) {
+        return fetch(url, { cache: "no-cache" })
+          .then(function (r) { return r.ok ? r.text() : cached; })
+          .then(function (fresh) {
+            if (fresh === cached) return;
+            return Promise.all(sameOriginAssets().map(function (u) {
+              return fetch(u, { cache: "reload" }).catch(function () {});
+            })).then(function () { location.reload(); });
+          });
+      })
+      .catch(function () { /* sin conexión: no pasa nada */ });
+  }
+
+  function start() { setTimeout(check, 1500); }
+  if (document.readyState === "complete") start();
+  else window.addEventListener("load", start);
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") check();
+  });
+  window.addEventListener("pageshow", function (e) { if (e.persisted) check(); });
+})();
