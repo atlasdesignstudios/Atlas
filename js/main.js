@@ -116,3 +116,19 @@
   });
   window.addEventListener("pageshow", function (e) { if (e.persisted) check(); });
 })();
+
+/* Vídeo decorativo de «Sobre Lusius»: se pausa fuera de pantalla y con «reducir movimiento» */
+(function () {
+  "use strict";
+  var v = document.querySelector(".marble__video");
+  if (!v) return;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) { v.removeAttribute("autoplay"); v.pause(); return; }
+  if (!("IntersectionObserver" in window)) return;
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else v.pause();
+    });
+  }).observe(v);
+})();

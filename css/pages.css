@@ -378,3 +378,13 @@
 @media (max-width: 440px) {
   .form { padding: 20px 16px; }
 }
+
+/* Animación de mármol (Sobre Lusius) */
+.marble {
+  width: min(100%, 500px);
+  margin: 0 auto clamp(40px, 6vw, 72px);
+  border: 1px solid var(--gold-dim);
+  background: #2b2b36;
+  line-height: 0;
+}
+.marble__video { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
